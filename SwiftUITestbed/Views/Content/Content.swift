@@ -5,39 +5,28 @@ struct Content: View {
     let store: Store<AppState>
 
     var body: some View {
-        Observing(store, state: \.count) { count in
+        Observing(store, state: \.count) { state in
             NavigationView {
                 List {
                     NavigationLink(
                         "Counter Demo",
-                        destination: Counter(count: store.binding(\.count))
+                        destination: Counter(
+                            count: store.binding(\.count),
+                            favoritesPrimes: store.binding(\.favoritePrimes)
+                        )
                     )
 
                     NavigationLink(
                         "Favorites",
-                        destination: FavoritePrimes(store: store.favoritePrimes)
+                        destination: FavoritePrimes(
+                            favoritePrimes: store.binding(\.favoritePrimes)
+                        )
                     )
 
-                    Text("\(count)")
+                    Text("\(state)")
                 }
                 .navigationTitle("State Management")
             }
         }
-    }
-}
-
-extension Store where State == AppState {
-    var counter: CounterStore {
-        scope(
-            initialState: { .init(count: $0.count) },
-            state: \.count,
-            parent: \.count
-        )
-    }
-
-    var favoritePrimes: FavoritePrimesStore {
-        scope(
-            state: \.favoritePrimesState
-        )
     }
 }

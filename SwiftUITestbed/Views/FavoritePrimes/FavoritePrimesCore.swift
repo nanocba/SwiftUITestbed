@@ -5,5 +5,7 @@ struct FavoritePrimesState: Equatable {
 }
 
 final class FavoritePrimesStore: Store<FavoritePrimesState> {
-    
+    func deleteFavoritePrime(_ set: IndexSet?) {
+        
+    }
 }

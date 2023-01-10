@@ -3,7 +3,15 @@ import SwiftUINavigation
 
 struct Counter: View {
     @Binding var count: Int
-    @State var store = CounterStore(initialState: .init(count: 0))
+    @Binding var favoritesPrimes: [Int]
+    @State var store = CounterStore(initialState: .init(count: 0, favoritesPrimes: []))
+
+//    init(count: Binding<Int>, favoritesPrimes: Binding<[Int]>) {
+//        self._count = count
+//        self._favoritesPrimes = favoritesPrimes
+//        store.state.count = count.wrappedValue
+//        store.state.favoritesPrimes = favoritesPrimes.wrappedValue
+//    }
 
     var body: some View {
         Observing(store, state: \.view) { state in
@@ -22,7 +30,7 @@ struct Counter: View {
             .font(.title)
             .navigationBarTitle("Counter demo")
             .sheet(isPresented: store.binding(\.isPrimeModalShown)) {
-                Button("Increment count", action: store.incr)
+                Button("Save to favorites", action: store.saveToFavorites)
             }
             .alert(item: store.binding(\.nthPrimeAlert)) { alert in
                 Alert(
@@ -30,7 +38,8 @@ struct Counter: View {
                     dismissButton: .default(Text("Ok"))
                 )
             }
-            .bind(store.binding(\.count), to: $count)
+            .bind($count, to: store.binding(\.count))
+            .bind($favoritesPrimes, to: store.binding(\.favoritesPrimes))
         }
     }
 

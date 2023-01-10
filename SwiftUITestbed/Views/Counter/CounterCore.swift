@@ -1,30 +1,9 @@
 import Foundation
 import SwiftUI
 
-@propertyWrapper struct MyCounterInt: DynamicProperty {
-    var store: CounterStore!
-    @State private var primeModalShown: Bool
-
-    var wrappedValue: Bool {
-        get {
-            primeModalShown
-        }
-        nonmutating set {
-            primeModalShown = newValue
-        }
-    }
-
-    init(wrappedValue value: Bool) {
-        self.primeModalShown = value
-    }
-
-    var projectedValue: Binding<Bool> {
-        $primeModalShown
-    }
-}
-
 struct CounterState: Equatable {
     var count: Int
+    var favoritesPrimes: [Int]
     var isPrimeModalShown = false
     var nthPrimeAlert: PrimeAlert? = nil
 
@@ -45,5 +24,9 @@ final class CounterStore: Store<CounterState>, DynamicProperty {
 
     func presentPrimeModal() {
         self.isPrimeModalShown = true
+    }
+
+    func saveToFavorites() {
+        self.favoritesPrimes.append(self.count)
     }
 }
