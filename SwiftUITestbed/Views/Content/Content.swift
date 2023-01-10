@@ -10,7 +10,7 @@ struct Content: View {
                 List {
                     NavigationLink(
                         "Counter Demo",
-                        destination: Counter(store: store.counter)
+                        destination: Counter(count: store.binding(\.count))
                     )
 
                     NavigationLink(

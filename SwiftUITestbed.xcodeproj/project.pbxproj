@@ -26,6 +26,7 @@
 		FA675089296A59B10006A680 /* FavoritePrimesCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA675088296A59B10006A680 /* FavoritePrimesCore.swift */; };
 		FA67508B296A59B90006A680 /* FavoritePrimes.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA67508A296A59B90006A680 /* FavoritePrimes.swift */; };
 		FACCD72D296C3121005D1150 /* CustomDump in Frameworks */ = {isa = PBXBuildFile; productRef = FACCD72C296C3121005D1150 /* CustomDump */; };
+		FACCD732296D833D005D1150 /* SwiftUINavigation in Frameworks */ = {isa = PBXBuildFile; productRef = FACCD731296D833D005D1150 /* SwiftUINavigation */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,6 +73,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FACCD732296D833D005D1150 /* SwiftUINavigation in Frameworks */,
 				FA355281296642790035FE49 /* IdentifiedCollections in Frameworks */,
 				FACCD72D296C3121005D1150 /* CustomDump in Frameworks */,
 				FA355284296642DB0035FE49 /* Dependencies in Frameworks */,
@@ -252,6 +254,7 @@
 				FA355280296642790035FE49 /* IdentifiedCollections */,
 				FA355283296642DB0035FE49 /* Dependencies */,
 				FACCD72C296C3121005D1150 /* CustomDump */,
+				FACCD731296D833D005D1150 /* SwiftUINavigation */,
 			);
 			productName = SwiftUITestbed;
 			productReference = FA35524A296640050035FE49 /* SwiftUITestbed.app */;
@@ -329,6 +332,7 @@
 				FA35527F296642790035FE49 /* XCRemoteSwiftPackageReference "swift-identified-collections" */,
 				FA355282296642DB0035FE49 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
 				FACCD72B296C3121005D1150 /* XCRemoteSwiftPackageReference "swift-custom-dump" */,
+				FACCD730296D833D005D1150 /* XCRemoteSwiftPackageReference "swiftui-navigation" */,
 			);
 			productRefGroup = FA35524B296640050035FE49 /* Products */;
 			projectDirPath = "";
@@ -727,6 +731,14 @@
 				minimumVersion = 0.6.1;
 			};
 		};
+		FACCD730296D833D005D1150 /* XCRemoteSwiftPackageReference "swiftui-navigation" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swiftui-navigation";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.5.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -744,6 +756,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = FACCD72B296C3121005D1150 /* XCRemoteSwiftPackageReference "swift-custom-dump" */;
 			productName = CustomDump;
+		};
+		FACCD731296D833D005D1150 /* SwiftUINavigation */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FACCD730296D833D005D1150 /* XCRemoteSwiftPackageReference "swiftui-navigation" */;
+			productName = SwiftUINavigation;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

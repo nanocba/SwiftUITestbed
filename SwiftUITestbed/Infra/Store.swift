@@ -47,10 +47,7 @@ public class Store<State: Equatable> {
     public func binding<Value>(
         _ keyPath: WritableKeyPath<State, Value>
     ) -> Binding<Value> {
-        Binding(
-            get: { self.state[keyPath: keyPath] },
-            set: { self.state[keyPath: keyPath] = $0 }
-        )
+        self._state.binding(keyPath)
     }
 
     public func binding<Value>(
@@ -95,6 +92,29 @@ class ViewStore<ViewState: Equatable>: ObservableObject {
 
     deinit {
         print("Deinit view store")
+    }
+}
+
+extension CurrentValueSubject {
+//  var binding: Binding<Output> {
+//    Binding(get: {
+//      self.value
+//    }, set: {
+//      self.send($0)
+//    })
+//  }
+
+    func binding<Value>(_ keyPath: WritableKeyPath<Output, Value>) -> Binding<Value> {
+        Binding(
+            get: {
+                self.value[keyPath: keyPath]
+            },
+            set: {
+                var value = self.value
+                value[keyPath: keyPath] = $0
+                self.send(value)
+            }
+        )
     }
 }
 

@@ -1,33 +1,36 @@
 import SwiftUI
+import SwiftUINavigation
 
 struct Counter: View {
-    let store: CounterStore
+    @Binding var count: Int
+    @State var store = CounterStore(initialState: .init(count: 0))
 
     var body: some View {
-        Observing(store, state: \.count) { count in
+        Observing(store, state: \.view) { state in
             VStack {
                 HStack {
                     Button("-", action: store.decr)
-                    Text("\(count)")
+                    Text("\(state.count)")
                     Button("+", action: store.incr)
                 }
                 Button("Is this prime?", action: store.presentPrimeModal)
                 Button(
-                    "What is the \(ordinal(count)) prime?",
+                    "What is the \(ordinal(state.count)) prime?",
                     action: {}
                 )
             }
             .font(.title)
             .navigationBarTitle("Counter demo")
             .sheet(isPresented: store.binding(\.isPrimeModalShown)) {
-                EmptyView()
+                Button("Increment count", action: store.incr)
             }
             .alert(item: store.binding(\.nthPrimeAlert)) { alert in
                 Alert(
-                    title: Text("The \(ordinal(count)) prime is \(alert.prime)"),
+                    title: Text("The \(ordinal(state.count)) prime is \(alert.prime)"),
                     dismissButton: .default(Text("Ok"))
                 )
             }
+            .bind(store.binding(\.count), to: $count)
         }
     }
 
@@ -35,6 +38,22 @@ struct Counter: View {
         let formatter = NumberFormatter()
         formatter.numberStyle = .ordinal
         return formatter.string(for: n) ?? ""
+    }
+}
+
+extension CounterState {
+    struct ViewState: Equatable {
+        let count: Int
+        let isPrimeModalShown: Bool
+        let nthPrimeAlert: PrimeAlert?
+    }
+
+    var view: ViewState {
+        .init(
+            count: count,
+            isPrimeModalShown: isPrimeModalShown,
+            nthPrimeAlert: nthPrimeAlert
+        )
     }
 }
 
