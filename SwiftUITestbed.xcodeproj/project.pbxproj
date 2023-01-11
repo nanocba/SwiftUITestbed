@@ -29,6 +29,12 @@
 		FACCD732296D833D005D1150 /* SwiftUINavigation in Frameworks */ = {isa = PBXBuildFile; productRef = FACCD731296D833D005D1150 /* SwiftUINavigation */; };
 		FACCD734296E408F005D1150 /* WolframAlpha.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACCD733296E408F005D1150 /* WolframAlpha.swift */; };
 		FACCD736296E8D53005D1150 /* TestStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACCD735296E8D53005D1150 /* TestStore.swift */; };
+		FACCD73B296EF20E005D1150 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACCD73A296EF20E005D1150 /* ContentView.swift */; };
+		FACCD73F296EF226005D1150 /* CounterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACCD73E296EF226005D1150 /* CounterViewModel.swift */; };
+		FACCD741296EF22F005D1150 /* CounterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACCD740296EF22F005D1150 /* CounterView.swift */; };
+		FACCD744296EF243005D1150 /* FavoritePrimesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACCD743296EF243005D1150 /* FavoritePrimesViewModel.swift */; };
+		FACCD746296EF24A005D1150 /* FavoritePrimesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACCD745296EF24A005D1150 /* FavoritePrimesView.swift */; };
+		FACCD749296EF2E6005D1150 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACCD748296EF2E6005D1150 /* Model.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,6 +76,12 @@
 		FA67508A296A59B90006A680 /* FavoritePrimes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritePrimes.swift; sourceTree = "<group>"; };
 		FACCD733296E408F005D1150 /* WolframAlpha.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WolframAlpha.swift; sourceTree = "<group>"; };
 		FACCD735296E8D53005D1150 /* TestStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestStore.swift; sourceTree = "<group>"; };
+		FACCD73A296EF20E005D1150 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		FACCD73E296EF226005D1150 /* CounterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterViewModel.swift; sourceTree = "<group>"; };
+		FACCD740296EF22F005D1150 /* CounterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterView.swift; sourceTree = "<group>"; };
+		FACCD743296EF243005D1150 /* FavoritePrimesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritePrimesViewModel.swift; sourceTree = "<group>"; };
+		FACCD745296EF24A005D1150 /* FavoritePrimesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritePrimesView.swift; sourceTree = "<group>"; };
+		FACCD748296EF2E6005D1150 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -178,10 +190,9 @@
 		FA355279296640530035FE49 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				FA67507E296A572D0006A680 /* App */,
-				FA675081296A57760006A680 /* Content */,
-				FA675083296A57D50006A680 /* Counter */,
-				FA675082296A57CF0006A680 /* FavoritePrimes */,
+				FA35524D296640050035FE49 /* SwiftUITestbedApp.swift */,
+				FACCD737296EF1EB005D1150 /* MVVM */,
+				FACCD74A296EF3C5005D1150 /* TCALike */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -208,7 +219,6 @@
 			isa = PBXGroup;
 			children = (
 				FA67507F296A573A0006A680 /* AppCore.swift */,
-				FA35524D296640050035FE49 /* SwiftUITestbedApp.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -238,6 +248,62 @@
 				FACCD733296E408F005D1150 /* WolframAlpha.swift */,
 			);
 			path = Counter;
+			sourceTree = "<group>";
+		};
+		FACCD737296EF1EB005D1150 /* MVVM */ = {
+			isa = PBXGroup;
+			children = (
+				FACCD747296EF2DE005D1150 /* Model */,
+				FACCD73C296EF213005D1150 /* Content */,
+				FACCD73D296EF21A005D1150 /* Counter */,
+				FACCD742296EF232005D1150 /* FavoritePrimes */,
+			);
+			path = MVVM;
+			sourceTree = "<group>";
+		};
+		FACCD73C296EF213005D1150 /* Content */ = {
+			isa = PBXGroup;
+			children = (
+				FACCD73A296EF20E005D1150 /* ContentView.swift */,
+			);
+			path = Content;
+			sourceTree = "<group>";
+		};
+		FACCD73D296EF21A005D1150 /* Counter */ = {
+			isa = PBXGroup;
+			children = (
+				FACCD73E296EF226005D1150 /* CounterViewModel.swift */,
+				FACCD740296EF22F005D1150 /* CounterView.swift */,
+			);
+			path = Counter;
+			sourceTree = "<group>";
+		};
+		FACCD742296EF232005D1150 /* FavoritePrimes */ = {
+			isa = PBXGroup;
+			children = (
+				FACCD743296EF243005D1150 /* FavoritePrimesViewModel.swift */,
+				FACCD745296EF24A005D1150 /* FavoritePrimesView.swift */,
+			);
+			path = FavoritePrimes;
+			sourceTree = "<group>";
+		};
+		FACCD747296EF2DE005D1150 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				FACCD748296EF2E6005D1150 /* Model.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		FACCD74A296EF3C5005D1150 /* TCALike */ = {
+			isa = PBXGroup;
+			children = (
+				FA67507E296A572D0006A680 /* App */,
+				FA675081296A57760006A680 /* Content */,
+				FA675083296A57D50006A680 /* Counter */,
+				FA675082296A57CF0006A680 /* FavoritePrimes */,
+			);
+			path = TCALike;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -383,15 +449,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				FA355250296640050035FE49 /* Content.swift in Sources */,
+				FACCD73B296EF20E005D1150 /* ContentView.swift in Sources */,
 				FA67508B296A59B90006A680 /* FavoritePrimes.swift in Sources */,
 				FA675080296A573A0006A680 /* AppCore.swift in Sources */,
+				FACCD73F296EF226005D1150 /* CounterViewModel.swift in Sources */,
 				FACCD734296E408F005D1150 /* WolframAlpha.swift in Sources */,
+				FACCD741296EF22F005D1150 /* CounterView.swift in Sources */,
 				FA35527C2966407B0035FE49 /* IfLet.swift in Sources */,
 				FA67507B296A551A0006A680 /* Store.swift in Sources */,
 				FA675085296A58280006A680 /* Counter.swift in Sources */,
 				FA67507D296A55370006A680 /* StoreObserver.swift in Sources */,
+				FACCD746296EF24A005D1150 /* FavoritePrimesView.swift in Sources */,
 				FA675089296A59B10006A680 /* FavoritePrimesCore.swift in Sources */,
+				FACCD744296EF243005D1150 /* FavoritePrimesViewModel.swift in Sources */,
 				FA675087296A58500006A680 /* CounterCore.swift in Sources */,
+				FACCD749296EF2E6005D1150 /* Model.swift in Sources */,
 				FA35527E296641370035FE49 /* ForEachBinding.swift in Sources */,
 				FA35524E296640050035FE49 /* SwiftUITestbedApp.swift in Sources */,
 			);

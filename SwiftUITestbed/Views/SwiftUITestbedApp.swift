@@ -3,6 +3,17 @@ import Combine
 
 @main
 struct SwiftUITestbedApp: App {
+    @StateObject var model = Model()
+
+    var body: some Scene {
+        WindowGroup {
+            ContentView()
+                .environmentObject(model)
+        }
+    }
+}
+
+struct SwiftUITestbedApp_tcalike: App {
     let store = Store(initialState: AppState())
     var body: some Scene {
         WindowGroup {
