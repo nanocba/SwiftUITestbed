@@ -1,4 +1,5 @@
 import SwiftUI
+import SwiftUINavigation
 
 struct Counter: View {
     @Binding var count: Int
@@ -42,8 +43,8 @@ struct Counter: View {
                     dismissButton: .default(Text("Ok"))
                 )
             }
-            .bind(store.binding(\.count), to: $count)
-            .bind(store.binding(\.favoritesPrimes), to: $favoritesPrimes)
+            .bind(model: store.binding(\.count), to: $count)
+            .bind(model: store.binding(\.favoritesPrimes), to: $favoritesPrimes)
         }
     }
 }
@@ -88,6 +89,22 @@ extension CounterState {
             isFavorite: isFavorite,
             loading: loading
         )
+    }
+}
+
+struct Counter_Previews: PreviewProvider {
+    struct State {
+        var count: Int = 0
+        var favoritePrimes: [Int] = []
+    }
+
+    static var previews: some View {
+        WithState(initialValue: State()) { state in
+            Counter(
+                count: state.count,
+                favoritesPrimes: state.favoritePrimes
+            )
+        }
     }
 }
 

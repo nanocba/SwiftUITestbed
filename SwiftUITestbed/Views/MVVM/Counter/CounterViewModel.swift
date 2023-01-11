@@ -3,12 +3,17 @@ import Foundation
 class CounterViewModel: ObservableObject {
     @Published var nthPrimeAlert: CounterState.PrimeAlert?
     @Published var loading: Bool = false
+    @Published var primeModalShown: Bool = false
 
     @MainActor func fetchNthPrime(_ count: Int) async {
         loading = true
         defer { loading = false }
         guard let result = try? await wolframAlpha(query: "prime \(count)")?.primeResult else { return }
         nthPrimeAlert = .init(prime: result)
+    }
+
+    func presentPrimeModal() {
+        primeModalShown = true
     }
 
     func favoriteActionTitle(isFavorite: Bool) -> String {

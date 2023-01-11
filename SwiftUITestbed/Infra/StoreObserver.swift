@@ -36,7 +36,7 @@ extension View {
   ///   - viewValue: A binding from view state. _E.g._, a focus binding.
   @available(iOS 14, macOS 11, tvOS 14, watchOS 7, *)
   public func bind<ModelValue: _Bindable, ViewValue: _Bindable>(
-    _ modelValue: ModelValue, to viewValue: ViewValue
+    model modelValue: ModelValue, to viewValue: ViewValue
   ) -> some View
   where ModelValue.Value == ViewValue.Value, ModelValue.Value: Equatable {
     self.modifier(_Bind(modelValue: modelValue, viewValue: viewValue))

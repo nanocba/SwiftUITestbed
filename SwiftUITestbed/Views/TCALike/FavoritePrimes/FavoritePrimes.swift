@@ -1,4 +1,5 @@
 import SwiftUI
+import SwiftUINavigation
 
 struct FavoritePrimes: View {
     @Binding var favoritePrimes: [Int]
@@ -13,7 +14,17 @@ struct FavoritePrimes: View {
                 .onDelete(perform: store.deleteFavoritePrime)
             }
             .navigationBarTitle("Favorites Primes")
-            .bind(store.binding(\.favoritePrimes), to: $favoritePrimes)
+            .bind(model: store.binding(\.favoritePrimes), to: $favoritePrimes)
+        }
+    }
+}
+
+struct FavoritePrimes_Previews: PreviewProvider {
+    static var previews: some View {
+        WithState(initialValue: [2, 5]) { favoritePrimes in
+            NavigationStack {
+                FavoritePrimes(favoritePrimes: favoritePrimes)
+            }
         }
     }
 }

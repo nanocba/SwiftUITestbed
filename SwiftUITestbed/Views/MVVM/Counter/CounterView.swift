@@ -2,9 +2,7 @@ import SwiftUI
 
 struct CounterView: View {
     @EnvironmentObject var model: Model
-
     @ObservedObject var viewModel: CounterViewModel
-    @State private var primeModalShown = false
 
     var body: some View {
         VStack {
@@ -13,7 +11,7 @@ struct CounterView: View {
                 Text("\(model.count)")
                 Button("+", action: { model.count += 1 })
             }
-            Button("Is this prime?", action: { primeModalShown = true } )
+            Button("Is this prime?", action: { viewModel.presentPrimeModal() } )
             Button("What is the \(viewModel.ordinal(model.count)) prime?", action: {
                 Task {
                     await viewModel.fetchNthPrime(model.count)
@@ -28,7 +26,7 @@ struct CounterView: View {
         }
         .font(.title)
         .navigationBarTitle("Counter demo")
-        .sheet(isPresented: $primeModalShown) {
+        .sheet(isPresented: $viewModel.primeModalShown) {
             if viewModel.isPrime(model.count) {
                 Text("\(model.count) is prime 🎉")
                 Button(viewModel.favoriteActionTitle(isFavorite: model.isCurrentCountFavorite), action: { model.toggleFavorite() })
@@ -42,5 +40,12 @@ struct CounterView: View {
                 dismissButton: .default(Text("Ok"))
             )
         }
+    }
+}
+
+struct CounterView_Previews: PreviewProvider {
+    static var previews: some View {
+        CounterView(viewModel: CounterViewModel())
+            .environmentObject(Model())
     }
 }
