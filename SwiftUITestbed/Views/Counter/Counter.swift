@@ -14,7 +14,7 @@ struct Counter: View {
                     Button("+", action: { store.incr() })
                 }
                 Button("Is this prime?", action: { store.presentPrimeModal() } )
-                Button("What is the \(ordinal(state.count)) prime?", action: {
+                Button("What is the \(state.ordinal) prime?", action: {
                     Task {
                         await store.fetchNthPrime()
                     }
@@ -38,19 +38,13 @@ struct Counter: View {
             }
             .alert(item: store.binding(\.nthPrimeAlert)) { alert in
                 Alert(
-                    title: Text("The \(ordinal(state.count)) prime is \(alert.prime)"),
+                    title: Text("The \(state.ordinal) prime is \(alert.prime)"),
                     dismissButton: .default(Text("Ok"))
                 )
             }
             .bind(store.binding(\.count), to: $count)
             .bind(store.binding(\.favoritesPrimes), to: $favoritesPrimes)
         }
-    }
-
-    func ordinal(_ n: Int) -> String {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .ordinal
-        return formatter.string(for: n) ?? ""
     }
 }
 
@@ -61,6 +55,10 @@ extension CounterState {
         let nthPrimeAlert: PrimeAlert?
         let isFavorite: Bool
         let loading: Bool
+
+        var ordinal: String {
+            ordinalValue(count)
+        }
 
         var favoriteActionTitle: String {
             isFavorite ? "Remove from favorites" : "Add to favorites"
@@ -73,6 +71,12 @@ extension CounterState {
               if count % i == 0 { return false }
             }
             return true
+        }
+
+        private func ordinalValue(_ n: Int) -> String {
+            let formatter = NumberFormatter()
+            formatter.numberStyle = .ordinal
+            return formatter.string(for: n) ?? ""
         }
     }
 
