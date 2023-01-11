@@ -13,7 +13,9 @@ struct ContentView: View {
 
                 NavigationLink(
                     "Favorites",
-                    destination: FavoritePrimesView()
+                    destination: FavoritePrimesView(
+                        viewModel: FavoritePrimesViewModel()
+                    )
                 )
             }
             .navigationTitle("State Management")

@@ -2,15 +2,17 @@ import SwiftUI
 
 struct FavoritePrimesView: View {
     @EnvironmentObject var model: Model
+    @ObservedObject var viewModel: FavoritePrimesViewModel
 
     var body: some View {
         List {
-            ForEach(model.favoritePrimes, id: \.self) { favoritePrime in
+            ForEach(viewModel.favoritePrimes, id: \.self) { favoritePrime in
                 Text("\(favoritePrime)")
             }
-            .onDelete(perform: model.deleteFavoritePrime)
+            .onDelete(perform: viewModel.deleteFavoritePrime)
         }
         .navigationBarTitle("Favorites Primes")
+        .bind(model: $viewModel.favoritePrimes, to: $model.favoritePrimes)
     }
 }
 
@@ -20,7 +22,7 @@ struct FavoritePrimesView_Previews: PreviewProvider {
         //Model being too broad is hard to mock it for previews.
         //We need to provide custom initializers to pass different values.
         NavigationStack {
-            FavoritePrimesView()
+            FavoritePrimesView(viewModel: FavoritePrimesViewModel())
                 .environmentObject(Model())
         }
     }

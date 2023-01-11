@@ -2,7 +2,7 @@ import SwiftUI
 import Combine
 
 @main
-struct SwiftUITestbedApp: App {
+struct SwiftUITestbedApp_mvvm: App {
     @StateObject var model = Model()
 
     var body: some Scene {

@@ -7,14 +7,14 @@ struct CounterView: View {
     var body: some View {
         VStack {
             HStack {
-                Button("-", action: { model.count -= 1 })
-                Text("\(model.count)")
-                Button("+", action: { model.count += 1 })
+                Button("-", action: { viewModel.decr() })
+                Text("\(viewModel.count)")
+                Button("+", action: { viewModel.incr() })
             }
             Button("Is this prime?", action: { viewModel.presentPrimeModal() } )
-            Button("What is the \(viewModel.ordinal(model.count)) prime?", action: {
+            Button("What is the \(viewModel.ordinal) prime?", action: {
                 Task {
-                    await viewModel.fetchNthPrime(model.count)
+                    await viewModel.fetchNthPrime()
                 }
             })
             .disabled(viewModel.loading)
@@ -27,19 +27,21 @@ struct CounterView: View {
         .font(.title)
         .navigationBarTitle("Counter demo")
         .sheet(isPresented: $viewModel.primeModalShown) {
-            if viewModel.isPrime(model.count) {
-                Text("\(model.count) is prime 🎉")
-                Button(viewModel.favoriteActionTitle(isFavorite: model.isCurrentCountFavorite), action: { model.toggleFavorite() })
+            if viewModel.isPrime {
+                Text("\(viewModel.count) is prime 🎉")
+                Button(viewModel.favoriteActionTitle, action: { viewModel.toggleFavorite() })
             } else {
-                Text("\(model.count) is not prime :(")
+                Text("\(viewModel.count) is not prime :(")
             }
         }
         .alert(item: $viewModel.nthPrimeAlert) { alert in
             Alert(
-                title: Text("The \(viewModel.ordinal(model.count)) prime is \(alert.prime)"),
+                title: Text("The \(viewModel.ordinal) prime is \(alert.prime)"),
                 dismissButton: .default(Text("Ok"))
             )
         }
+        .bind(model: $viewModel.count, to: $model.count)
+        .bind(model: $viewModel.favoritePrimes, to: $model.favoritePrimes)
     }
 }
 
