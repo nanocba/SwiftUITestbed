@@ -1,5 +1,4 @@
 import SwiftUI
-import SwiftUINavigation
 
 struct Counter: View {
     @Binding var count: Int
@@ -43,8 +42,8 @@ struct Counter: View {
                     dismissButton: .default(Text("Ok"))
                 )
             }
-            .bind($count, to: store.binding(\.count))
-            .bind($favoritesPrimes, to: store.binding(\.favoritesPrimes))
+            .bind(store.binding(\.count), to: $count)
+            .bind(store.binding(\.favoritesPrimes), to: $favoritesPrimes)
         }
     }
 

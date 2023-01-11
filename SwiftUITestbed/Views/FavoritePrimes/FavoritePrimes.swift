@@ -1,5 +1,4 @@
 import SwiftUI
-import SwiftUINavigation
 
 struct FavoritePrimes: View {
     @Binding var favoritePrimes: [Int]
@@ -14,7 +13,7 @@ struct FavoritePrimes: View {
                 .onDelete(perform: store.deleteFavoritePrime)
             }
             .navigationBarTitle("Favorites Primes")
-            .bind($favoritePrimes, to: store.binding(\.favoritePrimes))
+            .bind(store.binding(\.favoritePrimes), to: $favoritePrimes)
         }
     }
 }
