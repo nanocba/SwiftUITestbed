@@ -5,7 +5,8 @@ struct FavoritePrimesState: Equatable {
 }
 
 final class FavoritePrimesStore: Store<FavoritePrimesState> {
-    func deleteFavoritePrime(_ set: IndexSet?) {
-        
+    func deleteFavoritePrime(_ offsets: IndexSet?) {
+        guard let offsets = offsets else { return }
+        self.favoritePrimes.remove(atOffsets: offsets)
     }
 }

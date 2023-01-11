@@ -27,6 +27,7 @@
 		FA67508B296A59B90006A680 /* FavoritePrimes.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA67508A296A59B90006A680 /* FavoritePrimes.swift */; };
 		FACCD72D296C3121005D1150 /* CustomDump in Frameworks */ = {isa = PBXBuildFile; productRef = FACCD72C296C3121005D1150 /* CustomDump */; };
 		FACCD732296D833D005D1150 /* SwiftUINavigation in Frameworks */ = {isa = PBXBuildFile; productRef = FACCD731296D833D005D1150 /* SwiftUINavigation */; };
+		FACCD734296E408F005D1150 /* WolframAlpha.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACCD733296E408F005D1150 /* WolframAlpha.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +67,7 @@
 		FA675086296A58500006A680 /* CounterCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterCore.swift; sourceTree = "<group>"; };
 		FA675088296A59B10006A680 /* FavoritePrimesCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritePrimesCore.swift; sourceTree = "<group>"; };
 		FA67508A296A59B90006A680 /* FavoritePrimes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritePrimes.swift; sourceTree = "<group>"; };
+		FACCD733296E408F005D1150 /* WolframAlpha.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WolframAlpha.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -230,6 +232,7 @@
 			children = (
 				FA675086296A58500006A680 /* CounterCore.swift */,
 				FA675084296A58280006A680 /* Counter.swift */,
+				FACCD733296E408F005D1150 /* WolframAlpha.swift */,
 			);
 			path = Counter;
 			sourceTree = "<group>";
@@ -379,6 +382,7 @@
 				FA355250296640050035FE49 /* Content.swift in Sources */,
 				FA67508B296A59B90006A680 /* FavoritePrimes.swift in Sources */,
 				FA675080296A573A0006A680 /* AppCore.swift in Sources */,
+				FACCD734296E408F005D1150 /* WolframAlpha.swift in Sources */,
 				FA35527C2966407B0035FE49 /* IfLet.swift in Sources */,
 				FA67507B296A551A0006A680 /* Store.swift in Sources */,
 				FA675085296A58280006A680 /* Counter.swift in Sources */,
