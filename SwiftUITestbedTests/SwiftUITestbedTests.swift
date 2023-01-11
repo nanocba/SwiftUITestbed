@@ -1,77 +1,75 @@
-//
-//  SwiftUITestbedTests.swift
-//  SwiftUITestbedTests
-//
-//  Created by Mariano Donati on 04/01/2023.
-//
-
 import XCTest
-import CustomDump
 @testable import SwiftUITestbed
 
 final class SwiftUITestbedTests: XCTestCase {
-
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
-
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-
-    func testExample() throws {
-        let store = CounterStore(initialState: .init(count: 0))
+    func testCounterStore() throws {
+        let store = CounterStore(initialState: .init(count: 0, favoritesPrimes: []))
 
         store.assert(store.incr()) {
             $0.count = 1
         }
-    }
-}
-
-extension Store {
-    func assert(
-        _ execute: @autoclosure () -> Void,
-        update updateStateToExpectedResult: ((inout State) -> Void)? = nil,
-        file: StaticString = #file,
-        line: UInt = #line
-    ) {
-        var testState = state
-        execute()
-        updateStateToExpectedResult?(&testState)
-
-        if testState != state {
-            let difference = diff(testState, state, format: .proportional)
-              .map { "\($0.indent(by: 4))\n\n(Expected: −, Actual: +)" }
-              ?? """
-              Expected:
-              \(String(describing: testState).indent(by: 2))
-
-              Actual:
-              \(String(describing: state).indent(by: 2))
-              """
-            let messageHeading =
-              updateStateToExpectedResult != nil
-              ? "A state change does not match expectation"
-              : "State was not expected to change, but a change occurred"
-
-            XCTFail(
-              """
-              \(messageHeading): …
-
-              \(difference)
-              """,
-              file: file,
-              line: line
-            )
-        } else {
-            XCTAssertEqual(testState, state, file: file, line: line)
+        store.assert(store.decr()) {
+            $0.count = 0
+        }
+        store.assert(store.presentPrimeModal()) {
+            $0.isPrimeModalShown = true
+        }
+        store.assert(store.incr()) {
+            $0.count = 1
+        }
+        store.assert(store.toggleFavorite()) {
+            $0.favoritesPrimes = [1]
         }
     }
+
+    func testCounterViewState() throws {
+        let nonFavoritePrime = CounterState(
+            count: 1,
+            favoritesPrimes: []
+        )
+
+        let expected1 = CounterState.ViewState(
+            count: 1,
+            isPrimeModalShown: false,
+            nthPrimeAlert: nil,
+            isFavorite: false,
+            loading: false
+        )
+        XCTAssertEqual(nonFavoritePrime.view, expected1)
+        XCTAssertEqual(nonFavoritePrime.view.isFavorite, false)
+        XCTAssertEqual(nonFavoritePrime.view.isPrime, false)
+
+        let favoritePrime = CounterState(
+            count: 2,
+            favoritesPrimes: [2]
+        )
+
+        let expected2 = CounterState.ViewState(
+            count: 2,
+            isPrimeModalShown: false,
+            nthPrimeAlert: nil,
+            isFavorite: true,
+            loading: false
+        )
+        XCTAssertEqual(favoritePrime.view, expected2)
+        XCTAssertEqual(favoritePrime.view.isFavorite, true)
+        XCTAssertEqual(favoritePrime.view.isPrime, true)
+
+        let nonPrime = CounterState(
+            count: 4,
+            favoritesPrimes: [2]
+        )
+        let expected3 = CounterState.ViewState(
+            count: 4,
+            isPrimeModalShown: false,
+            nthPrimeAlert: nil,
+            isFavorite: false,
+            loading: false
+        )
+        XCTAssertEqual(nonPrime.view, expected3)
+        XCTAssertEqual(nonPrime.view.isFavorite, false)
+        XCTAssertEqual(nonPrime.view.isPrime, false)
+    }
 }
 
-extension String {
-  func indent(by indent: Int) -> String {
-    let indentation = String(repeating: " ", count: indent)
-    return indentation + self.replacingOccurrences(of: "\n", with: "\n\(indentation)")
-  }
-}
+

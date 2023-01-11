@@ -81,7 +81,7 @@ class ViewStore<ViewState: Equatable>: ObservableObject {
     private var cancellable: AnyCancellable?
 
     required init<State: Equatable, StoreType: Store<State>>(_ store: StoreType, observe: @escaping (State) -> ViewState) {
-        self.state = observe(store._state.value)
+        self.state = observe(store.state)
         cancellable = store._state.sink { [weak self] newValue in
             let newValue = observe(newValue)
             if newValue != self?.state {
@@ -96,14 +96,6 @@ class ViewStore<ViewState: Equatable>: ObservableObject {
 }
 
 extension CurrentValueSubject {
-//  var binding: Binding<Output> {
-//    Binding(get: {
-//      self.value
-//    }, set: {
-//      self.send($0)
-//    })
-//  }
-
     func binding<Value>(_ keyPath: WritableKeyPath<Output, Value>) -> Binding<Value> {
         Binding(
             get: {

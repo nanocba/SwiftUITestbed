@@ -18,7 +18,6 @@ struct CounterState: Equatable {
     }
 }
 
-@MainActor
 final class CounterStore: Store<CounterState> {
     func incr() {
         self.count += 1
@@ -40,7 +39,7 @@ final class CounterStore: Store<CounterState> {
         }
     }
 
-    func fetchNthPrime() async {
+    @MainActor func fetchNthPrime() async {
         self.loading = true
         defer { self.loading = false }
         guard let result = try? await wolframAlpha(query: "prime \(self.count)")?.primeResult else { return }
