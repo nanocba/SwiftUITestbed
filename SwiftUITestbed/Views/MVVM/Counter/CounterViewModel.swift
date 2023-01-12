@@ -1,29 +1,33 @@
 import Foundation
 
-class CounterViewModel: ObservableObject {
-    @Published var count: Int = 0
-    @Published var favoritePrimes: [Int] = []
-    @Published var nthPrimeAlert: CounterState.PrimeAlert?
-    @Published var loading: Bool = false
-    @Published var primeModalShown: Bool = false
+class CounterViewModel: ObservableViewModel {
+    struct State: Equatable {
+        var count: Int = 0
+        var favoritePrimes: [Int] = []
+        var nthPrimeAlert: CounterState.PrimeAlert?
+        var loading: Bool = false
+        var primeModalShown: Bool = false
+    }
+
+    @Published var state: State = .init()
 
     func incr() {
-        count += 1
+        self.count += 1
     }
 
     func decr() {
-        count -= 1
+        self.count -= 1
     }
 
     @MainActor func fetchNthPrime() async {
-        loading = true
-        defer { loading = false }
-        guard let result = try? await wolframAlpha(query: "prime \(count)")?.primeResult else { return }
-        nthPrimeAlert = .init(prime: result)
+        self.loading = true
+        defer { self.loading = false }
+        guard let result = try? await wolframAlpha(query: "prime \(self.count)")?.primeResult else { return }
+        self.nthPrimeAlert = .init(prime: result)
     }
 
     func presentPrimeModal() {
-        primeModalShown = true
+        self.primeModalShown = true
     }
 
     func toggleFavorite() {
@@ -35,10 +39,10 @@ class CounterViewModel: ObservableObject {
     }
 
     var isPrime: Bool {
-        if count <= 1 { return false }
-        if count <= 3 { return true }
-        for i in 2...Int(sqrtf(Float(count))) {
-          if count % i == 0 { return false }
+        if self.count <= 1 { return false }
+        if self.count <= 3 { return true }
+        for i in 2...Int(sqrtf(Float(self.count))) {
+            if self.count % i == 0 { return false }
         }
         return true
     }
@@ -46,7 +50,7 @@ class CounterViewModel: ObservableObject {
     var ordinal: String {
         let formatter = NumberFormatter()
         formatter.numberStyle = .ordinal
-        return formatter.string(for: count) ?? ""
+        return formatter.string(for: self.count) ?? ""
     }
 
     var favoriteActionTitle: String {
@@ -54,15 +58,15 @@ class CounterViewModel: ObservableObject {
     }
 
     var isCurrentCountFavorite: Bool {
-        favoritePrimes.contains(count)
+        self.favoritePrimes.contains(self.count)
     }
 
     private func saveToFavorites() {
-        favoritePrimes.append(count)
+        self.favoritePrimes.append(self.count)
     }
 
     private func removeFromFavorites() {
-        guard let index = favoritePrimes.firstIndex(of: count) else { return }
-        favoritePrimes.remove(at: index)
+        guard let index = self.favoritePrimes.firstIndex(of: self.count) else { return }
+        self.favoritePrimes.remove(at: index)
     }
 }

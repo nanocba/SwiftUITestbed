@@ -70,6 +70,26 @@ final class SwiftUITestbedTests: XCTestCase {
         XCTAssertEqual(nonPrime.view.isFavorite, false)
         XCTAssertEqual(nonPrime.view.isPrime, false)
     }
+
+    func testCounterViewModel() throws {
+        let viewModel = CounterViewModel()
+
+        viewModel.assert(viewModel.incr()) {
+            $0.count = 1
+        }
+        viewModel.assert(viewModel.decr()) {
+            $0.count = 0
+        }
+        viewModel.assert(viewModel.presentPrimeModal()) {
+            $0.primeModalShown = true
+        }
+        viewModel.assert(viewModel.incr()) {
+            $0.count = 1
+        }
+        viewModel.assert(viewModel.toggleFavorite()) {
+            $0.favoritePrimes = [1]
+        }
+    }
 }
 
 

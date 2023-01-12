@@ -36,6 +36,8 @@
 		FACCD746296EF24A005D1150 /* FavoritePrimesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACCD745296EF24A005D1150 /* FavoritePrimesView.swift */; };
 		FACCD749296EF2E6005D1150 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACCD748296EF2E6005D1150 /* Model.swift */; };
 		FACCD74C296F1622005D1150 /* SwiftUITestbedTests_MVVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACCD74B296F1622005D1150 /* SwiftUITestbedTests_MVVM.swift */; };
+		FACCD74F29708D8E005D1150 /* ObservableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACCD74E29708D8E005D1150 /* ObservableViewModel.swift */; };
+		FACCD75129708DD7005D1150 /* TestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACCD75029708DD7005D1150 /* TestViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -84,6 +86,8 @@
 		FACCD745296EF24A005D1150 /* FavoritePrimesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritePrimesView.swift; sourceTree = "<group>"; };
 		FACCD748296EF2E6005D1150 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		FACCD74B296F1622005D1150 /* SwiftUITestbedTests_MVVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUITestbedTests_MVVM.swift; sourceTree = "<group>"; };
+		FACCD74E29708D8E005D1150 /* ObservableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableViewModel.swift; sourceTree = "<group>"; };
+		FACCD75029708DD7005D1150 /* TestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -163,6 +167,7 @@
 				FA35525E296640070035FE49 /* SwiftUITestbedTests.swift */,
 				FACCD74B296F1622005D1150 /* SwiftUITestbedTests_MVVM.swift */,
 				FACCD735296E8D53005D1150 /* TestStore.swift */,
+				FACCD75029708DD7005D1150 /* TestViewModel.swift */,
 			);
 			path = SwiftUITestbedTests;
 			sourceTree = "<group>";
@@ -256,6 +261,7 @@
 		FACCD737296EF1EB005D1150 /* MVVM */ = {
 			isa = PBXGroup;
 			children = (
+				FACCD74D29708D7E005D1150 /* Infra */,
 				FACCD747296EF2DE005D1150 /* Model */,
 				FACCD73C296EF213005D1150 /* Content */,
 				FACCD73D296EF21A005D1150 /* Counter */,
@@ -307,6 +313,14 @@
 				FA675082296A57CF0006A680 /* FavoritePrimes */,
 			);
 			path = TCALike;
+			sourceTree = "<group>";
+		};
+		FACCD74D29708D7E005D1150 /* Infra */ = {
+			isa = PBXGroup;
+			children = (
+				FACCD74E29708D8E005D1150 /* ObservableViewModel.swift */,
+			);
+			path = Infra;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -465,6 +479,7 @@
 				FACCD746296EF24A005D1150 /* FavoritePrimesView.swift in Sources */,
 				FA675089296A59B10006A680 /* FavoritePrimesCore.swift in Sources */,
 				FACCD744296EF243005D1150 /* FavoritePrimesViewModel.swift in Sources */,
+				FACCD74F29708D8E005D1150 /* ObservableViewModel.swift in Sources */,
 				FA675087296A58500006A680 /* CounterCore.swift in Sources */,
 				FACCD749296EF2E6005D1150 /* Model.swift in Sources */,
 				FA35527E296641370035FE49 /* ForEachBinding.swift in Sources */,
@@ -478,6 +493,7 @@
 			files = (
 				FA35525F296640070035FE49 /* SwiftUITestbedTests.swift in Sources */,
 				FACCD736296E8D53005D1150 /* TestStore.swift in Sources */,
+				FACCD75129708DD7005D1150 /* TestViewModel.swift in Sources */,
 				FACCD74C296F1622005D1150 /* SwiftUITestbedTests_MVVM.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

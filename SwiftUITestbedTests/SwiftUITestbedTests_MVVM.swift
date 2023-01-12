@@ -5,17 +5,21 @@ final class SwiftUITestbedTests_MVVM: XCTestCase {
     func testCounterViewModel() throws {
         let viewModel = CounterViewModel()
 
-        viewModel.incr()
-        XCTAssertEqual(viewModel.count, 1)
-
-        viewModel.decr()
-        XCTAssertEqual(viewModel.count, 0)
-
-        viewModel.presentPrimeModal()
-        XCTAssertEqual(viewModel.primeModalShown, true)
-
-        viewModel.incr()
-        XCTAssertEqual(viewModel.count, 1)
+        viewModel.assert(viewModel.incr()) {
+            $0.count = 0
+        }
+        viewModel.assert(viewModel.decr()) {
+            $0.count = 0
+        }
+        viewModel.assert(viewModel.presentPrimeModal()) {
+            $0.primeModalShown = true
+        }
+        viewModel.assert(viewModel.incr()) {
+            $0.count = 1
+        }
+        viewModel.assert(viewModel.toggleFavorite()) {
+            $0.favoritePrimes = [1]
+        }
     }
 }
 
