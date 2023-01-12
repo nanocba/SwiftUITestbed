@@ -16,6 +16,14 @@ struct CounterState: Equatable {
       let prime: Int
       var id: Int { self.prime }
     }
+
+    internal init(count: Int, favoritesPrimes: [Int], isPrimeModalShown: Bool = false, nthPrimeAlert: CounterState.PrimeAlert? = nil, loading: Bool = false) {
+        self.count = count
+        self.favoritesPrimes = favoritesPrimes
+        self.isPrimeModalShown = isPrimeModalShown
+        self.nthPrimeAlert = nthPrimeAlert
+        self.loading = loading
+    }
 }
 
 final class CounterStore: Store<CounterState> {

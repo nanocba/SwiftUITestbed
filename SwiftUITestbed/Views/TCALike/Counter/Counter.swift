@@ -26,6 +26,13 @@ struct Counter: View {
                     Text("Fetching the data...")
                         .font(.callout)
                 }
+
+                NavigationLink(
+                    "Favorites",
+                    destination: FavoritePrimes(
+                        favoritePrimes: $favoritesPrimes
+                    )
+                )
             }
             .font(.title)
             .navigationBarTitle("Counter demo")

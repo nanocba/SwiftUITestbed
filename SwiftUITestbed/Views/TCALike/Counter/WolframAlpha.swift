@@ -43,5 +43,6 @@ func wolframAlpha(query: String) async throws -> WolframAlphaResult? {
     ]
 
     let (data, _) = try await URLSession.shared.data(from: components.url(relativeTo: nil)!)
+    try await Task.sleep(for: .seconds(5))
     return try? JSONDecoder().decode(WolframAlphaResult.self, from: data)
 }

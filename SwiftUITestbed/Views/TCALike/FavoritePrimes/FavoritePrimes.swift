@@ -16,6 +16,10 @@ struct FavoritePrimes: View {
             .navigationBarTitle("Favorites Primes")
             .bind(model: store.binding(\.favoritePrimes), to: $favoritePrimes)
         }
+        .toolbar {
+            // 2
+            EditButton()
+        }
     }
 }
 

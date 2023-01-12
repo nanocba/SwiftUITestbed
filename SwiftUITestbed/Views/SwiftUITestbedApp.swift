@@ -1,7 +1,6 @@
 import SwiftUI
 import Combine
 
-@main
 struct SwiftUITestbedApp_mvvm: App {
     @StateObject var model = Model()
 
@@ -13,6 +12,7 @@ struct SwiftUITestbedApp_mvvm: App {
     }
 }
 
+@main
 struct SwiftUITestbedApp_tcalike: App {
     let store = Store(initialState: AppState())
     var body: some Scene {
