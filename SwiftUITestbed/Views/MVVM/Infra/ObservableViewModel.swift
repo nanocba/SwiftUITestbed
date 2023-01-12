@@ -7,6 +7,14 @@ protocol ObservableViewModel: ObservableObject {
 }
 
 extension ObservableViewModel {
+    func update(_ closure: (inout State) -> Void) {
+        var current = state
+        closure(&current)
+        state = current
+    }
+}
+
+extension ObservableViewModel {
     public subscript<StateProperty>(dynamicMember keyPath: KeyPath<State, StateProperty>) -> StateProperty {
         self.state[keyPath: keyPath]
     }
