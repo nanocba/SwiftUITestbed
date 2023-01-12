@@ -142,7 +142,6 @@
 		FA35524C296640050035FE49 /* SwiftUITestbed */ = {
 			isa = PBXGroup;
 			children = (
-				FA675079296A550B0006A680 /* Infra */,
 				FA3552782966404B0035FE49 /* Dependencies */,
 				FA355277296640450035FE49 /* Model */,
 				FA355279296640530035FE49 /* Views */,
@@ -307,6 +306,7 @@
 		FACCD74A296EF3C5005D1150 /* TCALike */ = {
 			isa = PBXGroup;
 			children = (
+				FA675079296A550B0006A680 /* Infra */,
 				FA67507E296A572D0006A680 /* App */,
 				FA675081296A57760006A680 /* Content */,
 				FA675083296A57D50006A680 /* Counter */,
