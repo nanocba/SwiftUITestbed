@@ -30,7 +30,7 @@ struct Counter: View {
                 NavigationLink(
                     "Favorites",
                     destination: FavoritePrimes(
-                        favoritePrimes: $favoritesPrimes
+                        favoritePrimes: store.binding(\.favoritesPrimes)
                     )
                 )
             }

@@ -14,11 +14,11 @@ struct FavoritePrimes: View {
                 .onDelete(perform: store.deleteFavoritePrime)
             }
             .navigationBarTitle("Favorites Primes")
+            .toolbar {
+                // 2
+                EditButton()
+            }
             .bind(model: store.binding(\.favoritePrimes), to: $favoritePrimes)
-        }
-        .toolbar {
-            // 2
-            EditButton()
         }
     }
 }

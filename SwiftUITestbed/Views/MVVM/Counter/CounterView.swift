@@ -23,6 +23,11 @@ struct CounterView: View {
                 Text("Fetching the data...")
                     .font(.callout)
             }
+
+            NavigationLink(
+                "Favorites",
+                destination: FavoritePrimesView(viewModel: FavoritePrimesViewModel())
+            )
         }
         .font(.title)
         .navigationBarTitle("Counter demo")
