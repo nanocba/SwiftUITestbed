@@ -2,6 +2,14 @@ import SwiftUI
 import Combine
 
 @main
+struct SwiftUITestbedApp_mvvm_listings: App {
+    var body: some Scene {
+        WindowGroup {
+            ListingsContentView()
+        }
+    }
+}
+
 struct SwiftUITestbedApp_mvvm: App {
     @StateObject var model = Model()
 

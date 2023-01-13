@@ -1,17 +1,10 @@
 import Combine
+import SwiftUI
 
 @dynamicMemberLookup
 protocol ObservableViewModel: ObservableObject {
     associatedtype State: Equatable
     var state: State { get set }
-}
-
-extension ObservableViewModel {
-    func update(_ closure: (inout State) -> Void) {
-        var current = state
-        closure(&current)
-        state = current
-    }
 }
 
 extension ObservableViewModel {
@@ -22,5 +15,19 @@ extension ObservableViewModel {
     public subscript<StateProperty>(dynamicMember keyPath: WritableKeyPath<State, StateProperty>) -> StateProperty {
         get { self.state[keyPath: keyPath] }
         set { self.state[keyPath: keyPath] = newValue }
+    }
+
+    func binding<Value>(get keyPath: KeyPath<State, Value>, set: @escaping (Value) -> Void) -> Binding<Value> {
+        Binding(
+            get: { self.state[keyPath: keyPath] },
+            set: set
+        )
+    }
+
+    func binding<Value: Identifiable>(get element: Value, set: @escaping (Value.ID, Value) -> Void) -> Binding<Value> {
+        Binding(
+            get: { element },
+            set: { set(element.id, $0) }
+        )
     }
 }
