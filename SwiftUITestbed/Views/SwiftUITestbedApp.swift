@@ -3,9 +3,12 @@ import Combine
 
 @main
 struct SwiftUITestbedApp_mvvm_listings: App {
+    @StateObject private var favoritesModel = FavoritesModel()
+
     var body: some Scene {
         WindowGroup {
             ListingsContentView()
+                .environmentObject(favoritesModel)
         }
     }
 }

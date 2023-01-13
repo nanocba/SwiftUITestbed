@@ -41,6 +41,38 @@ extension View {
   where ModelValue.Value == ViewValue.Value, ModelValue.Value: Equatable {
     self.modifier(_Bind(modelValue: modelValue, viewValue: viewValue))
   }
+
+    @available(iOS 14, macOS 11, tvOS 14, watchOS 7, *)
+    public func bind<ModelValue: _Bindable, ViewValue>(
+      model modelValue: ModelValue, to viewValue: ViewValue
+    ) -> some View
+    where ModelValue.Value == ViewValue, ModelValue.Value: Equatable {
+      self.modifier(_BindValue(modelValue: modelValue, viewValue: viewValue))
+    }
+}
+
+@available(iOS 14, macOS 11, tvOS 14, watchOS 7, *)
+private struct _BindValue<ModelValue: _Bindable, ViewValue>: ViewModifier
+where ModelValue.Value == ViewValue, ModelValue.Value: Equatable {
+  let modelValue: ModelValue
+  let viewValue: ViewValue
+
+  @State var hasAppeared = false
+
+    func body(content: _BindValue.Content) -> some View {
+    content
+      .onAppear {
+        guard !self.hasAppeared else { return }
+        self.hasAppeared = true
+        guard self.viewValue != self.modelValue.wrappedValue else { return }
+          self.modelValue.wrappedValue = self.viewValue
+      }
+      .onChange(of: self.viewValue) {
+        guard self.modelValue.wrappedValue != $0
+        else { return }
+        self.modelValue.wrappedValue = $0
+      }
+  }
 }
 
 @available(iOS 14, macOS 11, tvOS 14, watchOS 7, *)
@@ -60,20 +92,14 @@ where ModelValue.Value == ViewValue.Value, ModelValue.Value: Equatable {
           self.modelValue.wrappedValue = self.viewValue.wrappedValue
       }
       .onChange(of: self.modelValue.wrappedValue) {
-          print("on change of model value \($0) view value \(self.viewValue.wrappedValue)")
         guard self.viewValue.wrappedValue != $0
         else { return }
         self.viewValue.wrappedValue = $0
-          print("view value changed")
-          print("----")
       }
       .onChange(of: self.viewValue.wrappedValue) {
-          print("on change of view value \($0) model value \(self.modelValue.wrappedValue)")
         guard self.modelValue.wrappedValue != $0
         else { return }
         self.modelValue.wrappedValue = $0
-          print("model value changed")
-          print("----")
       }
   }
 }

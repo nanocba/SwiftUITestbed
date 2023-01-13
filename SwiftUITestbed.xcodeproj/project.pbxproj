@@ -27,12 +27,15 @@
 		FA67508B296A59B90006A680 /* FavoritePrimes.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA67508A296A59B90006A680 /* FavoritePrimes.swift */; };
 		FA8CC73F2970C1AB0092C2A5 /* Listing.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8CC73E2970C1AB0092C2A5 /* Listing.swift */; };
 		FA8CC7422970C22F0092C2A5 /* Party.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8CC7412970C22F0092C2A5 /* Party.swift */; };
-		FA8CC7452970C4C30092C2A5 /* ListingsCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8CC7442970C4C30092C2A5 /* ListingsCore.swift */; };
+		FA8CC7452970C4C30092C2A5 /* ListingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8CC7442970C4C30092C2A5 /* ListingsViewModel.swift */; };
 		FA8CC7472970C4CB0092C2A5 /* ListingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8CC7462970C4CB0092C2A5 /* ListingsView.swift */; };
-		FA8CC74D297164E60092C2A5 /* ListingCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8CC74C297164E60092C2A5 /* ListingCore.swift */; };
+		FA8CC74D297164E60092C2A5 /* ListingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8CC74C297164E60092C2A5 /* ListingViewModel.swift */; };
 		FA8CC74F297164F10092C2A5 /* ListingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8CC74E297164F10092C2A5 /* ListingView.swift */; };
 		FA8CC7522971751F0092C2A5 /* Favorites.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8CC7512971751F0092C2A5 /* Favorites.swift */; };
 		FA8CC755297176AB0092C2A5 /* ListingsContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8CC754297176AB0092C2A5 /* ListingsContentView.swift */; };
+		FA8CC7572971A4750092C2A5 /* ListingsContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8CC7562971A4750092C2A5 /* ListingsContentViewModel.swift */; };
+		FA8CC75A2971A5860092C2A5 /* FavoritesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8CC7592971A5860092C2A5 /* FavoritesViewModel.swift */; };
+		FA8CC75C2971A58E0092C2A5 /* FavoritesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8CC75B2971A58E0092C2A5 /* FavoritesView.swift */; };
 		FACCD72D296C3121005D1150 /* CustomDump in Frameworks */ = {isa = PBXBuildFile; productRef = FACCD72C296C3121005D1150 /* CustomDump */; };
 		FACCD732296D833D005D1150 /* SwiftUINavigation in Frameworks */ = {isa = PBXBuildFile; productRef = FACCD731296D833D005D1150 /* SwiftUINavigation */; };
 		FACCD734296E408F005D1150 /* WolframAlpha.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACCD733296E408F005D1150 /* WolframAlpha.swift */; };
@@ -87,12 +90,15 @@
 		FA67508A296A59B90006A680 /* FavoritePrimes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritePrimes.swift; sourceTree = "<group>"; };
 		FA8CC73E2970C1AB0092C2A5 /* Listing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Listing.swift; sourceTree = "<group>"; };
 		FA8CC7412970C22F0092C2A5 /* Party.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Party.swift; sourceTree = "<group>"; };
-		FA8CC7442970C4C30092C2A5 /* ListingsCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingsCore.swift; sourceTree = "<group>"; };
+		FA8CC7442970C4C30092C2A5 /* ListingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingsViewModel.swift; sourceTree = "<group>"; };
 		FA8CC7462970C4CB0092C2A5 /* ListingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingsView.swift; sourceTree = "<group>"; };
-		FA8CC74C297164E60092C2A5 /* ListingCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingCore.swift; sourceTree = "<group>"; };
+		FA8CC74C297164E60092C2A5 /* ListingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingViewModel.swift; sourceTree = "<group>"; };
 		FA8CC74E297164F10092C2A5 /* ListingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingView.swift; sourceTree = "<group>"; };
 		FA8CC7512971751F0092C2A5 /* Favorites.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Favorites.swift; sourceTree = "<group>"; };
 		FA8CC754297176AB0092C2A5 /* ListingsContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingsContentView.swift; sourceTree = "<group>"; };
+		FA8CC7562971A4750092C2A5 /* ListingsContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingsContentViewModel.swift; sourceTree = "<group>"; };
+		FA8CC7592971A5860092C2A5 /* FavoritesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewModel.swift; sourceTree = "<group>"; };
+		FA8CC75B2971A58E0092C2A5 /* FavoritesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesView.swift; sourceTree = "<group>"; };
 		FACCD733296E408F005D1150 /* WolframAlpha.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WolframAlpha.swift; sourceTree = "<group>"; };
 		FACCD735296E8D53005D1150 /* TestStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestStore.swift; sourceTree = "<group>"; };
 		FACCD73A296EF20E005D1150 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -280,6 +286,7 @@
 				FA8CC753297176A10092C2A5 /* Content */,
 				FA8CC7432970C4AE0092C2A5 /* Listings */,
 				FA8CC74B297164AB0092C2A5 /* Listing */,
+				FA8CC7582971A5780092C2A5 /* Favorites */,
 			);
 			path = Listings;
 			sourceTree = "<group>";
@@ -308,7 +315,7 @@
 		FA8CC7432970C4AE0092C2A5 /* Listings */ = {
 			isa = PBXGroup;
 			children = (
-				FA8CC7442970C4C30092C2A5 /* ListingsCore.swift */,
+				FA8CC7442970C4C30092C2A5 /* ListingsViewModel.swift */,
 				FA8CC7462970C4CB0092C2A5 /* ListingsView.swift */,
 			);
 			path = Listings;
@@ -317,7 +324,7 @@
 		FA8CC74B297164AB0092C2A5 /* Listing */ = {
 			isa = PBXGroup;
 			children = (
-				FA8CC74C297164E60092C2A5 /* ListingCore.swift */,
+				FA8CC74C297164E60092C2A5 /* ListingViewModel.swift */,
 				FA8CC74E297164F10092C2A5 /* ListingView.swift */,
 			);
 			path = Listing;
@@ -326,9 +333,19 @@
 		FA8CC753297176A10092C2A5 /* Content */ = {
 			isa = PBXGroup;
 			children = (
+				FA8CC7562971A4750092C2A5 /* ListingsContentViewModel.swift */,
 				FA8CC754297176AB0092C2A5 /* ListingsContentView.swift */,
 			);
 			path = Content;
+			sourceTree = "<group>";
+		};
+		FA8CC7582971A5780092C2A5 /* Favorites */ = {
+			isa = PBXGroup;
+			children = (
+				FA8CC7592971A5860092C2A5 /* FavoritesViewModel.swift */,
+				FA8CC75B2971A58E0092C2A5 /* FavoritesView.swift */,
+			);
+			path = Favorites;
 			sourceTree = "<group>";
 		};
 		FACCD737296EF1EB005D1150 /* MVVM */ = {
@@ -537,11 +554,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA8CC75A2971A5860092C2A5 /* FavoritesViewModel.swift in Sources */,
 				FA8CC7422970C22F0092C2A5 /* Party.swift in Sources */,
 				FA355250296640050035FE49 /* Content.swift in Sources */,
 				FACCD73B296EF20E005D1150 /* ContentView.swift in Sources */,
-				FA8CC7452970C4C30092C2A5 /* ListingsCore.swift in Sources */,
+				FA8CC7452970C4C30092C2A5 /* ListingsViewModel.swift in Sources */,
 				FA8CC73F2970C1AB0092C2A5 /* Listing.swift in Sources */,
+				FA8CC7572971A4750092C2A5 /* ListingsContentViewModel.swift in Sources */,
 				FA67508B296A59B90006A680 /* FavoritePrimes.swift in Sources */,
 				FA675080296A573A0006A680 /* AppCore.swift in Sources */,
 				FACCD73F296EF226005D1150 /* CounterViewModel.swift in Sources */,
@@ -553,8 +572,9 @@
 				FA8CC7472970C4CB0092C2A5 /* ListingsView.swift in Sources */,
 				FA8CC755297176AB0092C2A5 /* ListingsContentView.swift in Sources */,
 				FA67507D296A55370006A680 /* StoreObserver.swift in Sources */,
-				FA8CC74D297164E60092C2A5 /* ListingCore.swift in Sources */,
+				FA8CC74D297164E60092C2A5 /* ListingViewModel.swift in Sources */,
 				FA8CC74F297164F10092C2A5 /* ListingView.swift in Sources */,
+				FA8CC75C2971A58E0092C2A5 /* FavoritesView.swift in Sources */,
 				FACCD746296EF24A005D1150 /* FavoritePrimesView.swift in Sources */,
 				FA675089296A59B10006A680 /* FavoritePrimesCore.swift in Sources */,
 				FACCD744296EF243005D1150 /* FavoritePrimesViewModel.swift in Sources */,

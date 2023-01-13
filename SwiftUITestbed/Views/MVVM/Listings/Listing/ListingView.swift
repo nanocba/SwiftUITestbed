@@ -62,7 +62,7 @@ struct ListingView: View {
         }
         .navigationTitle(viewModel.title)
         .alert(unwrapping: $viewModel.alert, action: viewModel.handleAlertAction)
-        .bind($viewModel.source, to: $listing)
+        .bind(model: $viewModel.source, to: $listing)
     }
 }
 

@@ -1,6 +1,8 @@
+import IdentifiedCollections
 import SwiftUI
 
 struct ListingsView: View {
+    @Binding var allListings: IdentifiedArrayOf<Listing>
     @StateObject private var viewModel = ListingsViewModel()
 
     var body: some View {
@@ -23,6 +25,7 @@ struct ListingsView: View {
                 await viewModel.fetchAllListings()
             }
             .navigationTitle("Listings")
+            .bind(model: $viewModel.allListings, to: $allListings)
         }
     }
 }
