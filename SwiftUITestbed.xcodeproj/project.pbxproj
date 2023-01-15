@@ -38,6 +38,10 @@
 		FA8CC75C2971A58E0092C2A5 /* FavoritesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8CC75B2971A58E0092C2A5 /* FavoritesView.swift */; };
 		FA8CC75E29748F450092C2A5 /* WithViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8CC75D29748F450092C2A5 /* WithViewModel.swift */; };
 		FA8CC761297490FC0092C2A5 /* ListingViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8CC760297490FC0092C2A5 /* ListingViewModelTests.swift */; };
+		FA8CC76429749F9A0092C2A5 /* LabelViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8CC76329749F9A0092C2A5 /* LabelViewModifier.swift */; };
+		FA8CC76729749FEA0092C2A5 /* FavoriteListingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8CC76629749FEA0092C2A5 /* FavoriteListingButton.swift */; };
+		FA8CC7692974A05F0092C2A5 /* LoadingOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8CC7682974A05F0092C2A5 /* LoadingOverlay.swift */; };
+		FA8CC76B2974A1240092C2A5 /* ListingNavigationLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8CC76A2974A1240092C2A5 /* ListingNavigationLink.swift */; };
 		FACCD72D296C3121005D1150 /* CustomDump in Frameworks */ = {isa = PBXBuildFile; productRef = FACCD72C296C3121005D1150 /* CustomDump */; };
 		FACCD732296D833D005D1150 /* SwiftUINavigation in Frameworks */ = {isa = PBXBuildFile; productRef = FACCD731296D833D005D1150 /* SwiftUINavigation */; };
 		FACCD734296E408F005D1150 /* WolframAlpha.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACCD733296E408F005D1150 /* WolframAlpha.swift */; };
@@ -103,6 +107,10 @@
 		FA8CC75B2971A58E0092C2A5 /* FavoritesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesView.swift; sourceTree = "<group>"; };
 		FA8CC75D29748F450092C2A5 /* WithViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithViewModel.swift; sourceTree = "<group>"; };
 		FA8CC760297490FC0092C2A5 /* ListingViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingViewModelTests.swift; sourceTree = "<group>"; };
+		FA8CC76329749F9A0092C2A5 /* LabelViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelViewModifier.swift; sourceTree = "<group>"; };
+		FA8CC76629749FEA0092C2A5 /* FavoriteListingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteListingButton.swift; sourceTree = "<group>"; };
+		FA8CC7682974A05F0092C2A5 /* LoadingOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingOverlay.swift; sourceTree = "<group>"; };
+		FA8CC76A2974A1240092C2A5 /* ListingNavigationLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingNavigationLink.swift; sourceTree = "<group>"; };
 		FACCD733296E408F005D1150 /* WolframAlpha.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WolframAlpha.swift; sourceTree = "<group>"; };
 		FACCD735296E8D53005D1150 /* TestStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestStore.swift; sourceTree = "<group>"; };
 		FACCD73A296EF20E005D1150 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -292,6 +300,8 @@
 				FA8CC7432970C4AE0092C2A5 /* Listings */,
 				FA8CC74B297164AB0092C2A5 /* Listing */,
 				FA8CC7582971A5780092C2A5 /* Favorites */,
+				FA8CC76229749F8E0092C2A5 /* Components */,
+				FA8CC76529749FCD0092C2A5 /* SwiftUI */,
 			);
 			path = Listings;
 			sourceTree = "<group>";
@@ -359,6 +369,24 @@
 				FA8CC760297490FC0092C2A5 /* ListingViewModelTests.swift */,
 			);
 			path = Listings;
+			sourceTree = "<group>";
+		};
+		FA8CC76229749F8E0092C2A5 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				FA8CC76629749FEA0092C2A5 /* FavoriteListingButton.swift */,
+				FA8CC76A2974A1240092C2A5 /* ListingNavigationLink.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		FA8CC76529749FCD0092C2A5 /* SwiftUI */ = {
+			isa = PBXGroup;
+			children = (
+				FA8CC76329749F9A0092C2A5 /* LabelViewModifier.swift */,
+				FA8CC7682974A05F0092C2A5 /* LoadingOverlay.swift */,
+			);
+			path = SwiftUI;
 			sourceTree = "<group>";
 		};
 		FACCD737296EF1EB005D1150 /* MVVM */ = {
@@ -574,8 +602,10 @@
 				FACCD73B296EF20E005D1150 /* ContentView.swift in Sources */,
 				FA8CC75E29748F450092C2A5 /* WithViewModel.swift in Sources */,
 				FA8CC7452970C4C30092C2A5 /* ListingsViewModel.swift in Sources */,
+				FA8CC76729749FEA0092C2A5 /* FavoriteListingButton.swift in Sources */,
 				FA8CC73F2970C1AB0092C2A5 /* Listing.swift in Sources */,
 				FA8CC7572971A4750092C2A5 /* ListingsContentViewModel.swift in Sources */,
+				FA8CC7692974A05F0092C2A5 /* LoadingOverlay.swift in Sources */,
 				FA67508B296A59B90006A680 /* FavoritePrimes.swift in Sources */,
 				FA675080296A573A0006A680 /* AppCore.swift in Sources */,
 				FACCD73F296EF226005D1150 /* CounterViewModel.swift in Sources */,
@@ -594,8 +624,10 @@
 				FA675089296A59B10006A680 /* FavoritePrimesCore.swift in Sources */,
 				FACCD744296EF243005D1150 /* FavoritePrimesViewModel.swift in Sources */,
 				FACCD74F29708D8E005D1150 /* ObservableViewModel.swift in Sources */,
+				FA8CC76B2974A1240092C2A5 /* ListingNavigationLink.swift in Sources */,
 				FA675087296A58500006A680 /* CounterCore.swift in Sources */,
 				FACCD749296EF2E6005D1150 /* Model.swift in Sources */,
+				FA8CC76429749F9A0092C2A5 /* LabelViewModifier.swift in Sources */,
 				FA35527E296641370035FE49 /* ForEachBinding.swift in Sources */,
 				FA35524E296640050035FE49 /* SwiftUITestbedApp.swift in Sources */,
 				FA8CC7522971751F0092C2A5 /* Favorites.swift in Sources */,

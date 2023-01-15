@@ -10,8 +10,12 @@ struct ListingsView: View {
                 List {
                     TextField(
                         "Search for listings",
-                        text: viewModel.binding(\.searchTerm)
+                        text: viewModel.binding(
+                            get: \.searchTerm,
+                            set: viewModel.setSearchTerm
+                        )
                     )
+                    .loading(viewModel.searching)
 
                     ForEach(viewModel.listings) { listing in
                         ListingNavigationLink(
@@ -27,65 +31,6 @@ struct ListingsView: View {
                 .navigationTitle("Listings")
                 .bind(model: viewModel.binding(\.allListings), to: $allListings)
             }
-        }
-    }
-}
-
-struct ListingNavigationLink: View {
-    @Binding var listing: Listing
-
-    var body: some View {
-        NavigationLink(destination: ListingView(listing: $listing)) {
-            VStack(alignment: .leading) {
-                HStack {
-                    Text(listing.listingTitle)
-                        .font(.body)
-
-                    FavoriteListingButton(listing)
-                }
-
-                Text(listing.address.addressText)
-                   .font(.callout)
-                   .foregroundColor(.gray)
-            }
-        }
-    }
-}
-
-struct LabelViewModifier: ViewModifier {
-    let label: String
-
-    func body(content: LabelViewModifier.Content) -> some View {
-        VStack(alignment: .leading, spacing: 0) {
-            Text(label)
-                .font(.callout)
-                .foregroundColor(.gray)
-
-            content
-                .font(.body)
-        }
-    }
-}
-
-extension View {
-    func label(_ label: String) -> some View {
-        modifier(LabelViewModifier(label: label))
-    }
-}
-
-struct FavoriteListingButton: View {
-    @EnvironmentObject var favoritesModel: FavoritesModel
-    let listing: Listing
-
-    init(_ listing: Listing) {
-        self.listing = listing
-    }
-
-    var body: some View {
-        if favoritesModel.canAddAsFavorite(listing) {
-            Image(systemName: favoritesModel.isFavorite(listing) ? "heart.fill" : "heart")
-                .onTapGesture { favoritesModel.toggle(listing) }
-                .foregroundColor(.blue)
         }
     }
 }
