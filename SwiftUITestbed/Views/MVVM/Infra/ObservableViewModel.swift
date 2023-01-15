@@ -30,4 +30,11 @@ extension ObservableViewModel {
             set: { set(element.id, $0) }
         )
     }
+
+    func binding<Value>(_ keyPath: WritableKeyPath<State, Value>) -> Binding<Value> {
+        Binding(
+            get: { self.state[keyPath: keyPath] },
+            set: { self.state[keyPath: keyPath] = $0 }
+        )
+    }
 }
