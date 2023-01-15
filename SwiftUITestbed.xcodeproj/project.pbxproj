@@ -37,6 +37,7 @@
 		FA8CC75A2971A5860092C2A5 /* FavoritesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8CC7592971A5860092C2A5 /* FavoritesViewModel.swift */; };
 		FA8CC75C2971A58E0092C2A5 /* FavoritesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8CC75B2971A58E0092C2A5 /* FavoritesView.swift */; };
 		FA8CC75E29748F450092C2A5 /* WithViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8CC75D29748F450092C2A5 /* WithViewModel.swift */; };
+		FA8CC761297490FC0092C2A5 /* ListingViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8CC760297490FC0092C2A5 /* ListingViewModelTests.swift */; };
 		FACCD72D296C3121005D1150 /* CustomDump in Frameworks */ = {isa = PBXBuildFile; productRef = FACCD72C296C3121005D1150 /* CustomDump */; };
 		FACCD732296D833D005D1150 /* SwiftUINavigation in Frameworks */ = {isa = PBXBuildFile; productRef = FACCD731296D833D005D1150 /* SwiftUINavigation */; };
 		FACCD734296E408F005D1150 /* WolframAlpha.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACCD733296E408F005D1150 /* WolframAlpha.swift */; };
@@ -101,6 +102,7 @@
 		FA8CC7592971A5860092C2A5 /* FavoritesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewModel.swift; sourceTree = "<group>"; };
 		FA8CC75B2971A58E0092C2A5 /* FavoritesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesView.swift; sourceTree = "<group>"; };
 		FA8CC75D29748F450092C2A5 /* WithViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithViewModel.swift; sourceTree = "<group>"; };
+		FA8CC760297490FC0092C2A5 /* ListingViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingViewModelTests.swift; sourceTree = "<group>"; };
 		FACCD733296E408F005D1150 /* WolframAlpha.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WolframAlpha.swift; sourceTree = "<group>"; };
 		FACCD735296E8D53005D1150 /* TestStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestStore.swift; sourceTree = "<group>"; };
 		FACCD73A296EF20E005D1150 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -187,6 +189,7 @@
 		FA35525D296640070035FE49 /* SwiftUITestbedTests */ = {
 			isa = PBXGroup;
 			children = (
+				FA8CC75F297490EA0092C2A5 /* Listings */,
 				FA35525E296640070035FE49 /* SwiftUITestbedTests.swift */,
 				FACCD74B296F1622005D1150 /* SwiftUITestbedTests_MVVM.swift */,
 				FACCD735296E8D53005D1150 /* TestStore.swift */,
@@ -348,6 +351,14 @@
 				FA8CC75B2971A58E0092C2A5 /* FavoritesView.swift */,
 			);
 			path = Favorites;
+			sourceTree = "<group>";
+		};
+		FA8CC75F297490EA0092C2A5 /* Listings */ = {
+			isa = PBXGroup;
+			children = (
+				FA8CC760297490FC0092C2A5 /* ListingViewModelTests.swift */,
+			);
+			path = Listings;
 			sourceTree = "<group>";
 		};
 		FACCD737296EF1EB005D1150 /* MVVM */ = {
@@ -599,6 +610,7 @@
 				FACCD736296E8D53005D1150 /* TestStore.swift in Sources */,
 				FACCD75129708DD7005D1150 /* TestViewModel.swift in Sources */,
 				FACCD74C296F1622005D1150 /* SwiftUITestbedTests_MVVM.swift in Sources */,
+				FA8CC761297490FC0092C2A5 /* ListingViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
