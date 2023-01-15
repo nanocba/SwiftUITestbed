@@ -14,7 +14,11 @@ class ListingsViewModel: ObservableViewModel {
         }
     }
 
-    @Published var state: State = .init()
+    @Published var state: State
+
+    init(allListings: IdentifiedArrayOf<Listing>) {
+        self.state = .init(allListings: allListings)
+    }
 
     @MainActor func fetchAllListings() async {
         guard self.allListings.isEmpty else { return }

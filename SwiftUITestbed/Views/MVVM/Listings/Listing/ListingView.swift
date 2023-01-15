@@ -5,64 +5,118 @@ struct ListingView: View {
 
     @Binding var listing: Listing
 
-    @StateObject private var viewModel: EditListingViewModel
-
-    // This init is intense
-    init(listing: Binding<Listing>) {
-        self._listing = listing
-        self._viewModel = StateObject(wrappedValue: EditListingViewModel(listing: listing.wrappedValue))
-    }
+//    @StateObject private var viewModel: EditListingViewModel
+//
+//    // This init is intense
+//    init(listing: Binding<Listing>) {
+//        self._listing = listing
+//        self._viewModel = StateObject(wrappedValue: EditListingViewModel(listing: listing.wrappedValue))
+//    }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 20) {
-            TextField("", text: $viewModel.title)
-                .label("Title")
+        WithViewModel(EditListingViewModel.init, listing) { viewModel in
+            VStack(alignment: .leading, spacing: 20) {
+                TextField("", text: viewModel.binding(\.title))
+                    .label("Title")
 
-            TextField("", text: $viewModel.addressStreet)
-                .label("Street")
+                TextField("", text: viewModel.binding(\.addressStreet))
+                    .label("Street")
 
-            TextField("", text: $viewModel.addressCity)
-                .label("City")
+                TextField("", text: viewModel.binding(\.addressCity))
+                    .label("City")
 
-            TextField("", text: $viewModel.addressState)
-                .label("State")
+                TextField("", text: viewModel.binding(\.addressState))
+                    .label("State")
 
-            TextField("", text: $viewModel.addressZipCode)
-                .keyboardType(.numberPad)
-                .label("Zip Code")
+                TextField("", text: viewModel.binding(\.addressZipCode))
+                    .keyboardType(.numberPad)
+                    .label("Zip Code")
 
-            TextField("", text: viewModel.binding(get: \.price, set: viewModel.updatePrice))
-                .keyboardType(.numberPad)
-                .label("Price")
+                TextField("", text: viewModel.binding(get: \.price, set: viewModel.updatePrice))
+                    .keyboardType(.numberPad)
+                    .label("Price")
 
-            if let priceError = viewModel.error {
-                Text(priceError)
-                    .font(.callout)
-                    .foregroundColor(.red)
+                if let priceError = viewModel.error {
+                    Text(priceError)
+                        .font(.callout)
+                        .foregroundColor(.red)
+                }
+
+                Spacer()
             }
-
-            Spacer()
-        }
-        .onChange(of: viewModel.dismiss) {
-            if $0 { dismiss() }
-        }
-        .padding()
-        .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                Button("Cancel", action: viewModel.cancel)
+            .onChange(of: viewModel.dismiss) {
+                if $0 { dismiss() }
             }
+            .padding()
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button("Cancel", action: viewModel.cancel)
+                }
 
-            ToolbarItem(placement: .navigationBarTrailing) {
-                HStack {
-                    FavoriteListingButton(listing)
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    HStack {
+                        FavoriteListingButton(listing)
 
-                    Button("Save", action: viewModel.save)
+                        Button("Save", action: viewModel.save)
+                    }
                 }
             }
+            .navigationTitle(viewModel.title)
+            .alert(unwrapping: viewModel.binding(\.alert), action: viewModel.handleAlertAction)
+            .bind(model: viewModel.binding(\.source), to: $listing)
         }
-        .navigationTitle(viewModel.title)
-        .alert(unwrapping: $viewModel.alert, action: viewModel.handleAlertAction)
-        .bind(model: $viewModel.source, to: $listing)
     }
+
+//    var body_old: some View {
+//        VStack(alignment: .leading, spacing: 20) {
+//            TextField("", text: $viewModel.title)
+//                .label("Title")
+//
+//            TextField("", text: $viewModel.addressStreet)
+//                .label("Street")
+//
+//            TextField("", text: $viewModel.addressCity)
+//                .label("City")
+//
+//            TextField("", text: $viewModel.addressState)
+//                .label("State")
+//
+//            TextField("", text: $viewModel.addressZipCode)
+//                .keyboardType(.numberPad)
+//                .label("Zip Code")
+//
+//            TextField("", text: viewModel.binding(get: \.price, set: viewModel.updatePrice))
+//                .keyboardType(.numberPad)
+//                .label("Price")
+//
+//            if let priceError = viewModel.error {
+//                Text(priceError)
+//                    .font(.callout)
+//                    .foregroundColor(.red)
+//            }
+//
+//            Spacer()
+//        }
+//        .onChange(of: viewModel.dismiss) {
+//            if $0 { dismiss() }
+//        }
+//        .padding()
+//        .toolbar {
+//            ToolbarItem(placement: .navigationBarLeading) {
+//                Button("Cancel", action: viewModel.cancel)
+//            }
+//
+//            ToolbarItem(placement: .navigationBarTrailing) {
+//                HStack {
+//                    FavoriteListingButton(listing)
+//
+//                    Button("Save", action: viewModel.save)
+//                }
+//            }
+//        }
+//        .navigationTitle(viewModel.title)
+//        .alert(unwrapping: $viewModel.alert, action: viewModel.handleAlertAction)
+//        .bind(model: $viewModel.source, to: $listing)
+//    }
 }
 

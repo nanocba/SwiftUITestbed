@@ -3,29 +3,30 @@ import SwiftUI
 
 struct ListingsView: View {
     @Binding var allListings: IdentifiedArrayOf<Listing>
-    @StateObject private var viewModel = ListingsViewModel()
 
     var body: some View {
-        NavigationView {
-            List {
-                TextField(
-                    "Search for listings",
-                    text: $viewModel.searchTerm
-                )
-
-                ForEach(viewModel.listings) { listing in
-                    ListingNavigationLink(
-                        listing: viewModel.binding(
-                            get: listing,
-                            set: viewModel.setListing)
+        WithViewModel(ListingsViewModel.init, allListings) { viewModel in
+            NavigationView {
+                List {
+                    TextField(
+                        "Search for listings",
+                        text: viewModel.binding(\.searchTerm)
                     )
+
+                    ForEach(viewModel.listings) { listing in
+                        ListingNavigationLink(
+                            listing: viewModel.binding(
+                                get: listing,
+                                set: viewModel.setListing)
+                        )
+                    }
                 }
+                .task {
+                    await viewModel.fetchAllListings()
+                }
+                .navigationTitle("Listings")
+                .bind(model: viewModel.binding(\.allListings), to: $allListings)
             }
-            .task {
-                await viewModel.fetchAllListings()
-            }
-            .navigationTitle("Listings")
-            .bind(model: $viewModel.allListings, to: $allListings)
         }
     }
 }

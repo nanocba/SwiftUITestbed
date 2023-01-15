@@ -1,21 +1,21 @@
 import SwiftUI
 
 struct ListingsContentView: View {
-    @StateObject private var viewModel = ListingsContentViewModel()
-
     var body: some View {
-        TabView(selection: $viewModel.tab) {
-            ListingsView(allListings: $viewModel.allListings)
-                .tabItem {
-                    Text("Listings")
-                }
-                .tag(ListingsContentViewModel.State.Tab.listings)
+        WithViewModel(ListingsContentViewModel.init) { viewModel in
+            TabView(selection: viewModel.binding(\.tab)) {
+                ListingsView(allListings: viewModel.binding(\.allListings))
+                    .tabItem {
+                        Text("Listings")
+                    }
+                    .tag(ListingsContentViewModel.State.Tab.listings)
 
-            FavoritesView(allListings: $viewModel.allListings)
-                .tabItem {
-                    Text("Favorites")
-                }
-                .tag(ListingsContentViewModel.State.Tab.favorites)
+                FavoritesView(allListings: viewModel.binding(\.allListings))
+                    .tabItem {
+                        Text("Favorites")
+                    }
+                    .tag(ListingsContentViewModel.State.Tab.favorites)
+            }
         }
     }
 }
