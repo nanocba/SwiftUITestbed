@@ -2,7 +2,7 @@ import XCTest
 import SwiftUINavigation
 @testable import SwiftUITestbed
 
-final class ListingViewModelTests: XCTestCase {
+final class EditListingViewModelTests: XCTestCase {
     func testSave() {
         let listing = subjectListing
         let viewModel = EditListingViewModel(listing: listing)

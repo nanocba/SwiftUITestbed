@@ -37,11 +37,12 @@
 		FA8CC75A2971A5860092C2A5 /* FavoritesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8CC7592971A5860092C2A5 /* FavoritesViewModel.swift */; };
 		FA8CC75C2971A58E0092C2A5 /* FavoritesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8CC75B2971A58E0092C2A5 /* FavoritesView.swift */; };
 		FA8CC75E29748F450092C2A5 /* WithViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8CC75D29748F450092C2A5 /* WithViewModel.swift */; };
-		FA8CC761297490FC0092C2A5 /* ListingViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8CC760297490FC0092C2A5 /* ListingViewModelTests.swift */; };
+		FA8CC761297490FC0092C2A5 /* EditListingViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8CC760297490FC0092C2A5 /* EditListingViewModelTests.swift */; };
 		FA8CC76429749F9A0092C2A5 /* LabelViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8CC76329749F9A0092C2A5 /* LabelViewModifier.swift */; };
 		FA8CC76729749FEA0092C2A5 /* FavoriteListingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8CC76629749FEA0092C2A5 /* FavoriteListingButton.swift */; };
 		FA8CC7692974A05F0092C2A5 /* LoadingOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8CC7682974A05F0092C2A5 /* LoadingOverlay.swift */; };
 		FA8CC76B2974A1240092C2A5 /* ListingNavigationLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8CC76A2974A1240092C2A5 /* ListingNavigationLink.swift */; };
+		FA8CC76D2974C97E0092C2A5 /* ListingsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8CC76C2974C97E0092C2A5 /* ListingsViewModelTests.swift */; };
 		FACCD72D296C3121005D1150 /* CustomDump in Frameworks */ = {isa = PBXBuildFile; productRef = FACCD72C296C3121005D1150 /* CustomDump */; };
 		FACCD732296D833D005D1150 /* SwiftUINavigation in Frameworks */ = {isa = PBXBuildFile; productRef = FACCD731296D833D005D1150 /* SwiftUINavigation */; };
 		FACCD734296E408F005D1150 /* WolframAlpha.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACCD733296E408F005D1150 /* WolframAlpha.swift */; };
@@ -106,11 +107,12 @@
 		FA8CC7592971A5860092C2A5 /* FavoritesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewModel.swift; sourceTree = "<group>"; };
 		FA8CC75B2971A58E0092C2A5 /* FavoritesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesView.swift; sourceTree = "<group>"; };
 		FA8CC75D29748F450092C2A5 /* WithViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithViewModel.swift; sourceTree = "<group>"; };
-		FA8CC760297490FC0092C2A5 /* ListingViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingViewModelTests.swift; sourceTree = "<group>"; };
+		FA8CC760297490FC0092C2A5 /* EditListingViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditListingViewModelTests.swift; sourceTree = "<group>"; };
 		FA8CC76329749F9A0092C2A5 /* LabelViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelViewModifier.swift; sourceTree = "<group>"; };
 		FA8CC76629749FEA0092C2A5 /* FavoriteListingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteListingButton.swift; sourceTree = "<group>"; };
 		FA8CC7682974A05F0092C2A5 /* LoadingOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingOverlay.swift; sourceTree = "<group>"; };
 		FA8CC76A2974A1240092C2A5 /* ListingNavigationLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingNavigationLink.swift; sourceTree = "<group>"; };
+		FA8CC76C2974C97E0092C2A5 /* ListingsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingsViewModelTests.swift; sourceTree = "<group>"; };
 		FACCD733296E408F005D1150 /* WolframAlpha.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WolframAlpha.swift; sourceTree = "<group>"; };
 		FACCD735296E8D53005D1150 /* TestStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestStore.swift; sourceTree = "<group>"; };
 		FACCD73A296EF20E005D1150 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -366,7 +368,8 @@
 		FA8CC75F297490EA0092C2A5 /* Listings */ = {
 			isa = PBXGroup;
 			children = (
-				FA8CC760297490FC0092C2A5 /* ListingViewModelTests.swift */,
+				FA8CC760297490FC0092C2A5 /* EditListingViewModelTests.swift */,
+				FA8CC76C2974C97E0092C2A5 /* ListingsViewModelTests.swift */,
 			);
 			path = Listings;
 			sourceTree = "<group>";
@@ -641,8 +644,9 @@
 				FA35525F296640070035FE49 /* SwiftUITestbedTests.swift in Sources */,
 				FACCD736296E8D53005D1150 /* TestStore.swift in Sources */,
 				FACCD75129708DD7005D1150 /* TestViewModel.swift in Sources */,
+				FA8CC76D2974C97E0092C2A5 /* ListingsViewModelTests.swift in Sources */,
 				FACCD74C296F1622005D1150 /* SwiftUITestbedTests_MVVM.swift in Sources */,
-				FA8CC761297490FC0092C2A5 /* ListingViewModelTests.swift in Sources */,
+				FA8CC761297490FC0092C2A5 /* EditListingViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,5 +1,6 @@
 import CustomDump
 import XCTest
+import SwiftUI
 @testable import SwiftUITestbed
 
 extension ObservableViewModel {
@@ -12,7 +13,22 @@ extension ObservableViewModel {
         var testState = state
         updateStateToExpectedResult?(&testState)
         execute()
+        checkDiff(testState, expectingMutations: updateStateToExpectedResult != nil, file: file, line: line)
+    }
 
+    func assertAsync(
+        after: Double = 0.01,
+        update updateStateToExpectedResult: ((inout State) -> Void)? = nil,
+        file: StaticString = #file,
+        line: UInt = #line
+    ) async throws {
+        var testState = state
+        updateStateToExpectedResult?(&testState)
+        try await Task.sleep(for: .seconds(after))
+        checkDiff(testState, expectingMutations: updateStateToExpectedResult != nil, file: file, line: line)
+    }
+
+    private func checkDiff(_ testState: State, expectingMutations: Bool, file: StaticString = #file, line: UInt = #line) {
         if testState != state {
             let difference = diff(testState, state, format: .proportional)
               .map { "\($0.indent(by: 4))\n\n(Expected: −, Actual: +)" }
@@ -24,7 +40,7 @@ extension ObservableViewModel {
               \(String(describing: state).indent(by: 2))
               """
             let messageHeading =
-              updateStateToExpectedResult != nil
+              expectingMutations
               ? "A state change does not match expectation"
               : "State was not expected to change, but a change occurred"
 

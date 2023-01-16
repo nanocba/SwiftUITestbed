@@ -15,25 +15,35 @@ class ListingsViewModel: ObservableViewModel {
     var searchTask: Task<IdentifiedArrayOf<Listing>, Error>?
 
     init(allListings: IdentifiedArrayOf<Listing>) {
-        self.state = .init(allListings: allListings, listings: allListings)
+        self.state = .init(
+            allListings: allListings,
+            listings: allListings
+        )
     }
 
     func setSearchTerm(_ value: String) {
         guard self.searchTerm != value else { return }
-        
+        Task(priority: .userInitiated) { @MainActor in
+            try await self.performSearch(value)
+        }
+    }
+
+    @MainActor func performSearch(_ value: String) async throws {
+        print("setting \(value)")
         self.searchTerm = value
 
-        Task { @MainActor in
-            searchTask?.cancel()
+        searchTask?.cancel()
 
-            let task = Task.detached {
-                try await Task.sleep(for: .seconds(0.5))
-                return try await self.search()
-            }
-
-            searchTask = task
-            self.listings = try await task.value
+        let task = Task.detached {
+            print("Task detacched")
+            try await Task.sleep(for: .seconds(0.5))
+            return try await self.search()
         }
+
+        print("assigning task")
+        searchTask = task
+        self.listings = try await task.value
+        print("assigning results")
     }
 
     @MainActor func fetchAllListings() async {
@@ -57,6 +67,7 @@ class ListingsViewModel: ObservableViewModel {
 
     func setListing(id: Listing.ID, listing: Listing) {
         self.allListings[id: id] = listing
+        self.listings = self.allListings
     }
 }
 
