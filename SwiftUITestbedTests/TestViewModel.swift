@@ -1,6 +1,7 @@
 import CustomDump
 import XCTest
 import SwiftUI
+import Combine
 @testable import SwiftUITestbed
 
 extension ObservableViewModel {
@@ -16,33 +17,144 @@ extension ObservableViewModel {
         checkDiff(testState, expectingMutations: updateStateToExpectedResult != nil, file: file, line: line)
     }
 
-    func assertAsync(
-        after: Double = 0.01,
-        update updateStateToExpectedResult: ((inout State) -> Void)? = nil,
+    func assert(
+        _ execute: @escaping @autoclosure () async -> Void,
+        beforeSuspension updateStateBeforeSuspension: ((inout State) -> Void)? = nil,
+        afterSuspension updateStateAfterSuspension: ((inout State) -> Void)? = nil,
+        file: StaticString = #file,
+        line: UInt = #line
+    ) async {
+        let currentState = state
+        var testState = currentState
+        updateStateBeforeSuspension?(&testState)
+        let task = Task { await execute() }
+        while currentState == state {
+            await Task.yield()
+        }
+        checkDiff(testState, expectingMutations: updateStateBeforeSuspension != nil, id: "before suspension", file: file, line: line)
+
+        updateStateAfterSuspension?(&testState)
+
+        await task.value
+
+        checkDiff(testState, expectingMutations: updateStateAfterSuspension != nil, id: "after suspension", file: file, line: line)
+    }
+
+    func assertThrowing(
+        _ execute: @escaping @autoclosure () async throws -> Void,
+        assertion: AsyncAssertion<State>,
         file: StaticString = #file,
         line: UInt = #line
     ) async throws {
-        var testState = state
-        updateStateToExpectedResult?(&testState)
-        try await Task.sleep(for: .seconds(after))
-        checkDiff(testState, expectingMutations: updateStateToExpectedResult != nil, file: file, line: line)
+        let currentState = state
+        var testState = currentState
+        assertion.beforeSuspension?(&testState)
+        let execution = TaskExecution(task: execute)
+
+        let task = Task {
+            print("outer task start")
+            try await execution.execute()
+            print("execute finished")
+        }
+
+        print("Awaiting executing to be started")
+
+        while await !execution.started {
+            print("Yielding task....")
+            await Task.yield()
+            print("Task yielded")
+        }
+
+        print("Checking diff before suspension point", testState, state)
+
+        checkDiff(testState, expectingMutations: assertion.beforeSuspension != nil, id: "before suspension", file: file, line: line)
+
+        assertion.afterSuspension?(&testState)
+
+        print("Awaiting for task result")
+
+        try await task.value
+
+        print("Checking diff after suspension point")
+
+        checkDiff(testState, expectingMutations: assertion.afterSuspension != nil, id: "after suspension", file: file, line: line)
     }
 
-    private func checkDiff(_ testState: State, expectingMutations: Bool, file: StaticString = #file, line: UInt = #line) {
+    func assertThrowing(
+        _ execute: @escaping @autoclosure () async throws -> Void,
+        beforeSuspension updateStateBeforeSuspension: ((inout State) -> Void)? = nil,
+        afterSuspension updateStateAfterSuspension: ((inout State) -> Void)? = nil,
+        file: StaticString = #file,
+        line: UInt = #line
+    ) async throws -> Void {
+        let currentState = state
+        var testState = currentState
+        updateStateBeforeSuspension?(&testState)
+        let execution = TaskExecution(task: execute)
+
+        let task = Task {
+            try await execution.execute()
+        }
+
+        while await !execution.started {
+            await Task.yield()
+            await Task.yield()
+            await Task.yield()
+            await Task.yield()
+        }
+
+        checkDiff(testState, expectingMutations: updateStateBeforeSuspension != nil, id: "before suspension", file: file, line: line)
+
+        updateStateAfterSuspension?(&testState)
+
+        try await task.value
+
+        checkDiff(testState, expectingMutations: updateStateAfterSuspension != nil, id: "after suspension", file: file, line: line)
+    }
+
+    func assertThrowing<Output>(
+        _ execute: @escaping @autoclosure () async throws -> Output,
+        beforeSuspension updateStateBeforeSuspension: ((inout State) -> Void)? = nil,
+        afterSuspension updateStateAfterSuspension: ((inout State) -> Void)? = nil,
+        file: StaticString = #file,
+        line: UInt = #line
+    ) async throws -> Output {
+        let currentState = state
+        var testState = currentState
+        updateStateBeforeSuspension?(&testState)
+        let task = Task { try await execute() }
+        while currentState == state {
+            await Task.yield()
+        }
+        checkDiff(testState, expectingMutations: updateStateBeforeSuspension != nil, id: "before suspension", file: file, line: line)
+
+        updateStateAfterSuspension?(&testState)
+
+        let value = try await task.value
+
+        checkDiff(testState, expectingMutations: updateStateAfterSuspension != nil, id: "after suspension", file: file, line: line)
+
+        return value
+    }
+
+    private func checkDiff(_ testState: State, expectingMutations: Bool, id: String? = nil, file: StaticString = #file, line: UInt = #line) {
         if testState != state {
-            let difference = diff(testState, state, format: .proportional)
+            let current = state
+            let difference = diff(testState, current, format: .proportional)
               .map { "\($0.indent(by: 4))\n\n(Expected: −, Actual: +)" }
               ?? """
               Expected:
               \(String(describing: testState).indent(by: 2))
 
               Actual:
-              \(String(describing: state).indent(by: 2))
+              \(String(describing: current).indent(by: 2))
               """
-            let messageHeading =
+            var messageHeading =
               expectingMutations
               ? "A state change does not match expectation"
               : "State was not expected to change, but a change occurred"
+
+            messageHeading = id.map { "\(messageHeading) in \($0)" } ?? messageHeading
 
             XCTFail(
               """
@@ -59,10 +171,77 @@ extension ObservableViewModel {
     }
 }
 
+typealias UpdateStateClosure<State> = ((inout State) -> Void)
+
+enum AsyncAssertion<State: Equatable> {
+    case beforeSuspension(UpdateStateClosure<State>)
+    case afterSuspension(UpdateStateClosure<State>)
+    case before(UpdateStateClosure<State>, after: UpdateStateClosure<State>)
+
+    var beforeSuspension: UpdateStateClosure<State>? {
+        switch self {
+        case .beforeSuspension(let c), .before(let c, after: _):
+            return c
+        case .afterSuspension:
+            return nil
+        }
+    }
+
+    var afterSuspension: UpdateStateClosure<State>? {
+        switch self {
+        case .beforeSuspension:
+            return nil
+        case .afterSuspension(let c), .before(_, let c):
+            return c
+        }
+    }
+}
+
+actor TaskExecution {
+    var started: Bool = false
+    let task: () async throws -> Void
+
+    init(task: @escaping () async throws -> Void) {
+        self.task = task
+    }
+
+    func execute() async throws -> Void {
+        started = true
+        try await task()
+    }
+}
+
 fileprivate extension String {
   func indent(by indent: Int) -> String {
     let indentation = String(repeating: " ", count: indent)
     return indentation + self.replacingOccurrences(of: "\n", with: "\n\(indentation)")
   }
+}
+
+enum AsyncError: Error {
+    case finishedWithoutValue
+}
+
+extension AnyPublisher {
+    func async() async throws -> Output {
+        try await withCheckedThrowingContinuation { continuation in
+            var cancellable: AnyCancellable?
+            var finishedWithoutValue = true
+            cancellable = first().sink { result in
+                switch result {
+                case .finished:
+                    if finishedWithoutValue {
+                        continuation.resume(throwing: AsyncError.finishedWithoutValue)
+                    }
+                case let .failure(error):
+                    continuation.resume(throwing: error)
+                }
+                cancellable?.cancel()
+            } receiveValue: { value in
+                finishedWithoutValue = false
+                continuation.resume(with: .success(value))
+            }
+        }
+    }
 }
 

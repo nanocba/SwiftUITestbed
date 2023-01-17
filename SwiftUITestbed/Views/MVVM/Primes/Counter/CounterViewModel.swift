@@ -10,6 +10,7 @@ class CounterViewModel: ObservableViewModel {
     }
 
     @Published var state: State = .init()
+    var statePublisher: Published<State>.Publisher { $state }
 
     func incr() {
         self.count += 1
