@@ -67,7 +67,14 @@ class ListingsViewModel: ObservableViewModel {
 
     func setListing(id: Listing.ID, listing: Listing) {
         self.allListings[id: id] = listing
-        self.listings = self.allListings
+        self.listings[id: id] = listing
+    }
+
+    func setAllListings(_ value: IdentifiedArrayOf<Listing>) {
+        self.allListings = value
+        for listing in value {
+            self.setListing(id: listing.id, listing: listing)
+        }
     }
 }
 

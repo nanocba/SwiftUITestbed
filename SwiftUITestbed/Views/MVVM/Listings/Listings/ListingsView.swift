@@ -29,7 +29,7 @@ struct ListingsView: View {
                     await viewModel.fetchAllListings()
                 }
                 .navigationTitle("Listings")
-                .bind(model: viewModel.binding(\.allListings), to: $allListings)
+                .bind(model: viewModel.binding(get: \.allListings, set: viewModel.setAllListings), to: $allListings)
             }
         }
     }

@@ -42,74 +42,33 @@ extension ObservableViewModel {
 
     func assertThrowing(
         _ execute: @escaping @autoclosure () async throws -> Void,
-        assertion: AsyncAssertion<State>,
+        _ assertion: AsyncAssertion<State>,
         file: StaticString = #file,
         line: UInt = #line
-    ) async throws {
+    ) async throws -> Void {
         let currentState = state
         var testState = currentState
         assertion.beforeSuspension?(&testState)
         let execution = TaskExecution(task: execute)
 
         let task = Task {
-            print("outer task start")
             try await execution.execute()
-            print("execute finished")
         }
-
-        print("Awaiting executing to be started")
 
         while await !execution.started {
-            print("Yielding task....")
             await Task.yield()
-            print("Task yielded")
+            await Task.yield()
+            await Task.yield()
+            await Task.yield()
         }
-
-        print("Checking diff before suspension point", testState, state)
 
         checkDiff(testState, expectingMutations: assertion.beforeSuspension != nil, id: "before suspension", file: file, line: line)
 
         assertion.afterSuspension?(&testState)
 
-        print("Awaiting for task result")
-
         try await task.value
-
-        print("Checking diff after suspension point")
 
         checkDiff(testState, expectingMutations: assertion.afterSuspension != nil, id: "after suspension", file: file, line: line)
-    }
-
-    func assertThrowing(
-        _ execute: @escaping @autoclosure () async throws -> Void,
-        beforeSuspension updateStateBeforeSuspension: ((inout State) -> Void)? = nil,
-        afterSuspension updateStateAfterSuspension: ((inout State) -> Void)? = nil,
-        file: StaticString = #file,
-        line: UInt = #line
-    ) async throws -> Void {
-        let currentState = state
-        var testState = currentState
-        updateStateBeforeSuspension?(&testState)
-        let execution = TaskExecution(task: execute)
-
-        let task = Task {
-            try await execution.execute()
-        }
-
-        while await !execution.started {
-            await Task.yield()
-            await Task.yield()
-            await Task.yield()
-            await Task.yield()
-        }
-
-        checkDiff(testState, expectingMutations: updateStateBeforeSuspension != nil, id: "before suspension", file: file, line: line)
-
-        updateStateAfterSuspension?(&testState)
-
-        try await task.value
-
-        checkDiff(testState, expectingMutations: updateStateAfterSuspension != nil, id: "after suspension", file: file, line: line)
     }
 
     func assertThrowing<Output>(
