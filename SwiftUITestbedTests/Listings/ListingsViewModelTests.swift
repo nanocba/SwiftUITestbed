@@ -9,7 +9,7 @@ class TestViewModel: ObservableViewModel {
         var loading: Bool = false
     }
 
-    @Published var state: State
+    @Published private(set) var state: State
 
     init() {
         self.state = .init()
@@ -17,18 +17,18 @@ class TestViewModel: ObservableViewModel {
 
     func incr() async throws {
         try await Task.sleep(for: .seconds(0.5))
-        self.count += 1
+        state.count += 1
     }
 
     func incrWithLoading() async throws {
-        self.loading = true
+        state.loading = true
         try await Task.sleep(for: .seconds(0.5))
-        self.count += 1
-        self.loading = false
+        state.count += 1
+        state.loading = false
     }
 
     func fakeIncr() async throws {
-        self.loading = true
+        state.loading = true
         try await Task.sleep(for: .seconds(0.5))
     }
 }

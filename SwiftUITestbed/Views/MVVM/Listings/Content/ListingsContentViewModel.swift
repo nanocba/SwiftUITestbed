@@ -12,5 +12,15 @@ class ListingsContentViewModel: ObservableViewModel {
         }
     }
 
-    @Published var state: State = .init(tab: .listings, allListings: [])
+    @Published private(set) var state: State = .init(tab: .listings, allListings: [])
+
+    var tab: State.Tab {
+        get { state.tab }
+        set { state.tab = newValue }
+    }
+
+    var allListings: IdentifiedArrayOf<Listing> {
+        get { state.allListings }
+        set { state.allListings = newValue }
+    }
 }

@@ -10,27 +10,52 @@ class ListingsViewModel: ObservableViewModel {
         var listings: IdentifiedArrayOf<Listing>
     }
 
-    @Published var state: State
+    @Published private(set) var state: State
 
     var searchTask: Task<IdentifiedArrayOf<Listing>, Error>?
 
     init(allListings: IdentifiedArrayOf<Listing>) {
-        self.state = .init(
+        state = .init(
             allListings: allListings,
             listings: allListings
         )
     }
 
-    func setSearchTerm(_ value: String) {
-        guard self.searchTerm != value else { return }
-        Task(priority: .userInitiated) { @MainActor in
-            try await self.performSearch(value)
+    var searchTerm: String {
+        get { state.searchTerm }
+        set {
+            guard state.searchTerm != newValue else { return }
+            Task(priority: .userInitiated) { @MainActor in
+                try await self.performSearch(newValue)
+            }
         }
+    }
+
+    var allListings: IdentifiedArrayOf<Listing> {
+        get { state.allListings }
+        set {
+            state.allListings = newValue
+            for listing in newValue {
+                self.updateListing(listing)
+            }
+        }
+    }
+
+    func binding(listing: Listing) -> Binding<Listing> {
+        Binding(
+            get: { listing },
+            set: { self.updateListing($0) }
+        )
+    }
+
+    private func updateListing(_ listing: Listing) {
+        self.state.allListings[id: listing.id] = listing
+        self.state.listings[id: listing.id] = listing
     }
 
     @MainActor func performSearch(_ value: String) async throws {
         print("setting \(value)")
-        self.searchTerm = value
+        state.searchTerm = value
 
         searchTask?.cancel()
 
@@ -42,39 +67,27 @@ class ListingsViewModel: ObservableViewModel {
 
         print("assigning task")
         searchTask = task
-        self.listings = try await task.value
+        state.listings = try await task.value
         print("assigning results")
     }
 
     @MainActor func fetchAllListings() async {
-        guard self.allListings.isEmpty else { return }
-        self.loading = true
+        guard state.allListings.isEmpty else { return }
+        state.loading = true
         try? await Task.sleep(for: .seconds(0.25))
         let listings: [Listing] = .all
-        self.allListings = .init(uniqueElements: listings)
-        self.listings = self.allListings
-        self.loading = false
+        state.allListings = .init(uniqueElements: listings)
+        state.listings = state.allListings
+        state.loading = false
     }
 
     @MainActor func search() async throws -> IdentifiedArrayOf<Listing> {
-        self.searching = true
+        state.searching = true
         try await Task.sleep(for: .seconds(1))
-        let term = self.searchTerm
-        let listings = term.isEmpty ? self.allListings : self.allListings.filter { $0.listingTitle.contains(term) || $0.address.addressText.contains(term) }
-        self.searching = false
+        let term = state.searchTerm
+        let listings = term.isEmpty ? state.allListings : state.allListings.filter { $0.listingTitle.contains(term) || $0.address.addressText.contains(term) }
+        state.searching = false
         return .init(uniqueElements: listings)
-    }
-
-    func setListing(id: Listing.ID, listing: Listing) {
-        self.allListings[id: id] = listing
-        self.listings[id: id] = listing
-    }
-
-    func setAllListings(_ value: IdentifiedArrayOf<Listing>) {
-        self.allListings = value
-        for listing in value {
-            self.setListing(id: listing.id, listing: listing)
-        }
     }
 }
 

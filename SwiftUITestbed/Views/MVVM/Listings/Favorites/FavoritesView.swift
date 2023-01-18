@@ -10,11 +10,7 @@ struct FavoritesView: View {
             NavigationStack {
                 List {
                     ForEach(viewModel.favorites) { favoriteListing in
-                        ListingNavigationLink(
-                            listing: viewModel.binding(
-                                get: favoriteListing,
-                                set: viewModel.setListing)
-                        )
+                        ListingNavigationLink(listing: viewModel.binding(listing: favoriteListing))
                     }
                 }
                 .navigationTitle("Favorites")

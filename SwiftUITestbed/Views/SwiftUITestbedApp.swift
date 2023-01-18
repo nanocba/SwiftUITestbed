@@ -13,17 +13,6 @@ struct SwiftUITestbedApp_mvvm_listings: App {
     }
 }
 
-struct SwiftUITestbedApp_mvvm: App {
-    @StateObject var model = Model()
-
-    var body: some Scene {
-        WindowGroup {
-            ContentView()
-                .environmentObject(model)
-        }
-    }
-}
-
 struct SwiftUITestbedApp_tcalike: App {
     let store = Store(initialState: AppState())
     var body: some Scene {

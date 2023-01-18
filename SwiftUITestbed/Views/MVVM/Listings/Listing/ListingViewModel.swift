@@ -33,44 +33,82 @@ class EditListingViewModel: ObservableViewModel {
         }
     }
 
-    @Published var state: State
+    @Published private(set) var state: State
 
     init(listing: Listing) {
         self.state = .init(listing: listing)
     }
 
-    func updatePrice(_ text: String) {
-        guard let value = Double(text) else {
-            self.error = "Price should be a valid number."
-            return
-        }
+    var title: String {
+        get { state.title }
+        set { state.title = newValue }
+    }
 
-        guard value > 100 else {
-            self.error = "Price should be greater than 100."
-            return
-        }
+    var addressStreet: String {
+        get { state.addressStreet }
+        set { state.addressStreet = newValue }
+    }
 
-        self.price = text
-        self.error = nil
+    var addressCity: String {
+        get { state.addressCity }
+        set { state.addressCity = newValue }
+    }
+
+    var addressState: String {
+        get { state.addressState }
+        set { state.addressState = newValue }
+    }
+
+    var addressZipCode: String {
+        get { state.addressZipCode }
+        set { state.addressZipCode = newValue }
+    }
+
+    var alert: AlertState<State.AlertAction>? {
+        get { state.alert }
+        set { state.alert = newValue }
+    }
+
+    var source: Listing {
+        get { state.source }
+        set { state.source = newValue }
+    }
+
+    var price: String {
+        get { state.price }
+        set {
+            guard let value = Double(newValue) else {
+                state.error = "Price should be a valid number."
+                return
+            }
+
+            guard value > 100 else {
+                state.error = "Price should be greater than 100."
+                return
+            }
+
+            state.price = newValue
+            state.error = nil
+        }
     }
 
     private func inputListing() -> Listing {
         Listing(
-            id: self.source.id,
-            title: self.title,
+            id: state.source.id,
+            title: state.title,
             address: .init(
-                streetName: self.addressStreet,
-                state: self.addressState,
-                city: self.addressCity,
-                zipCode: self.addressZipCode),
-            price: Double(self.price) ?? 0,
-            parties: self.source.parties
+                streetName: state.addressStreet,
+                state: state.addressState,
+                city: state.addressCity,
+                zipCode: state.addressZipCode),
+            price: Double(state.price) ?? 0,
+            parties: state.source.parties
         )
     }
 
     func save() {
-        guard self.error == nil else {
-            self.alert = AlertState(
+        guard state.error == nil else {
+            state.alert = AlertState(
                 title: .init("Unable to save"),
                 message: .init("The input provided contains errors."),
                 buttons: [.default(.init("OK"))]
@@ -78,13 +116,13 @@ class EditListingViewModel: ObservableViewModel {
             return
         }
 
-        self.source = inputListing()
-        self.dismiss = true
+        state.source = inputListing()
+        state.dismiss = true
     }
 
     func cancel() {
-        guard self.inputListing() == self.source else {
-            self.alert = AlertState(
+        guard self.inputListing() == state.source else {
+            state.alert = AlertState(
                 title: .init("Unsaved changes"),
                 message: .init("You have made changes that will be lost if you navigate away."),
                 buttons: [
@@ -95,18 +133,18 @@ class EditListingViewModel: ObservableViewModel {
             return
         }
 
-        self.dismiss = true
+        state.dismiss = true
     }
 
     @MainActor func handleAlertAction(_ action: State.AlertAction) {
         switch action {
         case .dismiss:
-            self.dismiss = true
+            state.dismiss = true
 
         case .continueEditing, .ok:
             break
         }
-        self.alert = nil
+        state.alert = nil
     }
 }
 

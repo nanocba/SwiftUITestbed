@@ -2,16 +2,7 @@ import SwiftUI
 
 struct ListingView: View {
     @Environment(\.dismiss) var dismiss
-
     @Binding var listing: Listing
-
-//    @StateObject private var viewModel: EditListingViewModel
-//
-//    // This init is intense
-//    init(listing: Binding<Listing>) {
-//        self._listing = listing
-//        self._viewModel = StateObject(wrappedValue: EditListingViewModel(listing: listing.wrappedValue))
-//    }
 
     var body: some View {
         WithViewModel(EditListingViewModel.init, listing) { viewModel in
@@ -32,11 +23,11 @@ struct ListingView: View {
                     .keyboardType(.numberPad)
                     .label("Zip Code")
 
-                TextField("", text: viewModel.binding(get: \.price, set: viewModel.updatePrice))
+                TextField("", text: viewModel.binding(\.price))
                     .keyboardType(.numberPad)
                     .label("Price")
 
-                if let priceError = viewModel.error {
+                if let priceError = viewModel.state.error {
                     Text(priceError)
                         .font(.callout)
                         .foregroundColor(.red)
@@ -44,7 +35,7 @@ struct ListingView: View {
 
                 Spacer()
             }
-            .onChange(of: viewModel.dismiss) {
+            .onChange(of: viewModel.state.dismiss) {
                 if $0 { dismiss() }
             }
             .padding()
@@ -61,7 +52,7 @@ struct ListingView: View {
                     }
                 }
             }
-            .navigationTitle(viewModel.title)
+            .navigationTitle(viewModel.state.title)
             .alert(unwrapping: viewModel.binding(\.alert), action: viewModel.handleAlertAction)
             .bind(model: viewModel.binding(\.source), to: $listing)
         }

@@ -1,6 +1,7 @@
 import IdentifiedCollections
 import Foundation
 import Dependencies
+import SwiftUI
 
 class FavoritesViewModel: ObservableViewModel {
     struct State: Equatable {
@@ -8,20 +9,33 @@ class FavoritesViewModel: ObservableViewModel {
         var favoritesIds: [Listing.ID]
     }
 
-    @Published var state: State
+    @Published private(set) var state: State
 
-    let favoritesModel: FavoritesModel
+    private let favoritesModel: FavoritesModel
 
     init(favoritesModel: FavoritesModel, allListings: IdentifiedArrayOf<Listing>) {
         self.favoritesModel = favoritesModel
         self.state = .init(allListings: allListings, favoritesIds: favoritesModel.favorites)
     }
 
-    func setListing(_ id: Listing.ID, listing: Listing) {
-        self.allListings[id: id] = listing
+    var allListings: IdentifiedArrayOf<Listing> {
+        get { state.allListings }
+        set { state.allListings = newValue }
+    }
+
+    var favoritesIds: [Listing.ID] {
+        get { state.favoritesIds }
+        set { state.favoritesIds = newValue }
+    }
+
+    func binding(listing: Listing) -> Binding<Listing> {
+        Binding(
+            get: { listing },
+            set: { self.state.allListings[id: listing.id] = $0 }
+        )
     }
 
     var favorites: IdentifiedArrayOf<Listing> {
-        favoritesModel.favoritesListings(self.allListings)
+        favoritesModel.favoritesListings(state.allListings)
     }
 }

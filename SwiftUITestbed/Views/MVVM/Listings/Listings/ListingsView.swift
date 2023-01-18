@@ -10,26 +10,19 @@ struct ListingsView: View {
                 List {
                     TextField(
                         "Search for listings",
-                        text: viewModel.binding(
-                            get: \.searchTerm,
-                            set: viewModel.setSearchTerm
-                        )
+                        text: viewModel.binding(\.searchTerm)
                     )
-                    .loading(viewModel.searching)
+                    .loading(viewModel.state.searching)
 
-                    ForEach(viewModel.listings) { listing in
-                        ListingNavigationLink(
-                            listing: viewModel.binding(
-                                get: listing,
-                                set: viewModel.setListing)
-                        )
+                    ForEach(viewModel.state.listings) { listing in
+                        ListingNavigationLink(listing: viewModel.binding(listing: listing))
                     }
                 }
                 .task {
                     await viewModel.fetchAllListings()
                 }
                 .navigationTitle("Listings")
-                .bind(model: viewModel.binding(get: \.allListings, set: viewModel.setAllListings), to: $allListings)
+                .bind(model: viewModel.binding(\.allListings), to: $allListings)
             }
         }
     }

@@ -17,7 +17,7 @@ final class EditListingViewModelTests: XCTestCase {
         let listing = subjectListing
         let viewModel = EditListingViewModel(listing: listing)
 
-        viewModel.assert(viewModel.updatePrice("90")) {
+        viewModel.assert(viewModel.price = "90") {
             $0.error = "Price should be greater than 100."
         }
 
