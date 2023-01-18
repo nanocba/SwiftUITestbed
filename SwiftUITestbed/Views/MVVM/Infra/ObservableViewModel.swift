@@ -14,3 +14,18 @@ extension ObservableViewModel {
         )
     }
 }
+
+@dynamicMemberLookup
+struct Immutable<Object: AnyObject> {
+    private let object: Object
+}
+
+extension Immutable {
+    init(_ object: Object) {
+        self.object = object
+    }
+
+    public subscript<ObjectProperty>(dynamicMember keyPath: KeyPath<Object, ObjectProperty>) -> ObjectProperty {
+        self.object[keyPath: keyPath]
+    }
+}

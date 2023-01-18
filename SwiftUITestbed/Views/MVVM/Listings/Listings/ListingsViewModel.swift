@@ -54,21 +54,17 @@ class ListingsViewModel: ObservableViewModel {
     }
 
     @MainActor func performSearch(_ value: String) async throws {
-        print("setting \(value)")
         state.searchTerm = value
 
         searchTask?.cancel()
 
         let task = Task.detached {
-            print("Task detacched")
             try await Task.sleep(for: .seconds(0.5))
             return try await self.search()
         }
 
-        print("assigning task")
         searchTask = task
         state.listings = try await task.value
-        print("assigning results")
     }
 
     @MainActor func fetchAllListings() async {
