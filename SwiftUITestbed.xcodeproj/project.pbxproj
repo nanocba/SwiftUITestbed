@@ -18,6 +18,8 @@
 		FA35527E296641370035FE49 /* ForEachBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA35527D296641370035FE49 /* ForEachBinding.swift */; };
 		FA355281296642790035FE49 /* IdentifiedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = FA355280296642790035FE49 /* IdentifiedCollections */; };
 		FA355284296642DB0035FE49 /* Dependencies in Frameworks */ = {isa = PBXBuildFile; productRef = FA355283296642DB0035FE49 /* Dependencies */; };
+		FA4FE096297869BC00C46F1F /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4FE094297869BC00C46F1F /* TestView.swift */; };
+		FA4FE097297869BC00C46F1F /* TestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4FE095297869BC00C46F1F /* TestViewModel.swift */; };
 		FA67507B296A551A0006A680 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA67507A296A551A0006A680 /* Store.swift */; };
 		FA67507D296A55370006A680 /* StoreObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA67507C296A55370006A680 /* StoreObserver.swift */; };
 		FA675080296A573A0006A680 /* AppCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA67507F296A573A0006A680 /* AppCore.swift */; };
@@ -81,6 +83,8 @@
 		FA35526A296640070035FE49 /* SwiftUITestbedUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUITestbedUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		FA35527B2966407A0035FE49 /* IfLet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IfLet.swift; sourceTree = "<group>"; };
 		FA35527D296641370035FE49 /* ForEachBinding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForEachBinding.swift; sourceTree = "<group>"; };
+		FA4FE094297869BC00C46F1F /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
+		FA4FE095297869BC00C46F1F /* TestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewModel.swift; sourceTree = "<group>"; };
 		FA67507A296A551A0006A680 /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
 		FA67507C296A55370006A680 /* StoreObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreObserver.swift; sourceTree = "<group>"; };
 		FA67507F296A573A0006A680 /* AppCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCore.swift; sourceTree = "<group>"; };
@@ -289,6 +293,8 @@
 				FA8CC7582971A5780092C2A5 /* Favorites */,
 				FA8CC76229749F8E0092C2A5 /* Components */,
 				FA8CC76529749FCD0092C2A5 /* SwiftUI */,
+				FA4FE094297869BC00C46F1F /* TestView.swift */,
+				FA4FE095297869BC00C46F1F /* TestViewModel.swift */,
 			);
 			path = Listings;
 			sourceTree = "<group>";
@@ -544,6 +550,7 @@
 				FA8CC75E29748F450092C2A5 /* WithViewModel.swift in Sources */,
 				FA8CC7452970C4C30092C2A5 /* ListingsViewModel.swift in Sources */,
 				FA8CC76729749FEA0092C2A5 /* FavoriteListingButton.swift in Sources */,
+				FA4FE096297869BC00C46F1F /* TestView.swift in Sources */,
 				FA8CC73F2970C1AB0092C2A5 /* Listing.swift in Sources */,
 				FA8CC7572971A4750092C2A5 /* ListingsContentViewModel.swift in Sources */,
 				FA8CC7692974A05F0092C2A5 /* LoadingOverlay.swift in Sources */,
@@ -559,6 +566,7 @@
 				FA8CC74D297164E60092C2A5 /* ListingViewModel.swift in Sources */,
 				FA8CC74F297164F10092C2A5 /* ListingView.swift in Sources */,
 				FA8CC75C2971A58E0092C2A5 /* FavoritesView.swift in Sources */,
+				FA4FE097297869BC00C46F1F /* TestViewModel.swift in Sources */,
 				FA675089296A59B10006A680 /* FavoritePrimesCore.swift in Sources */,
 				FACCD74F29708D8E005D1150 /* ObservableViewModel.swift in Sources */,
 				FA8CC76B2974A1240092C2A5 /* ListingNavigationLink.swift in Sources */,

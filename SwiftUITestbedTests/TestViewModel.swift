@@ -17,6 +17,16 @@ extension ObservableViewModel {
         checkDiff(testState, expectingMutations: updateStateToExpectedResult != nil, file: file, line: line)
     }
 
+    func assert<Value>(
+        _ binding: Binding<Value>,
+        value: Value,
+        update updateStateToExpectedResult: ((inout State) -> Void)? = nil,
+        file: StaticString = #file,
+        line: UInt = #line
+    ) {
+        assert(binding.wrappedValue = value, update: updateStateToExpectedResult, file: file, line: line)
+    }
+
     func assert(
         _ execute: @escaping @autoclosure () async -> Void,
         beforeSuspension updateStateBeforeSuspension: ((inout State) -> Void)? = nil,
