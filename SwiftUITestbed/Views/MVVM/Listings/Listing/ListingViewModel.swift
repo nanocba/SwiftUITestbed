@@ -8,7 +8,7 @@ class EditListingViewModel: ObservableViewModel {
         var addressCity: String
         var addressState: String
         var addressZipCode: String
-        var price: String
+        fileprivate var price: String
         var error: String?
         var dismiss: Bool
         var alert: AlertState<AlertAction>?
@@ -37,41 +37,6 @@ class EditListingViewModel: ObservableViewModel {
 
     init(listing: Listing) {
         self.state = .init(listing: listing)
-    }
-
-    var title: String {
-        get { state.title }
-        set { state.title = newValue }
-    }
-
-    var addressStreet: String {
-        get { state.addressStreet }
-        set { state.addressStreet = newValue }
-    }
-
-    var addressCity: String {
-        get { state.addressCity }
-        set { state.addressCity = newValue }
-    }
-
-    var addressState: String {
-        get { state.addressState }
-        set { state.addressState = newValue }
-    }
-
-    var addressZipCode: String {
-        get { state.addressZipCode }
-        set { state.addressZipCode = newValue }
-    }
-
-    var alert: AlertState<State.AlertAction>? {
-        get { state.alert }
-        set { state.alert = newValue }
-    }
-
-    var source: Listing {
-        get { state.source }
-        set { state.source = newValue }
     }
 
     var price: String {
@@ -145,6 +110,13 @@ class EditListingViewModel: ObservableViewModel {
             break
         }
         state.alert = nil
+    }
+
+    func binding<Value>(_ keyPath: WritableKeyPath<State, Value>) -> Binding<Value> {
+        Binding(
+            get: { self.state[keyPath: keyPath] },
+            set: { self.state[keyPath: keyPath] = $0 }
+        )
     }
 }
 

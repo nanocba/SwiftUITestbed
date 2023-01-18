@@ -18,16 +18,6 @@ class FavoritesViewModel: ObservableViewModel {
         self.state = .init(allListings: allListings, favoritesIds: favoritesModel.favorites)
     }
 
-    var allListings: IdentifiedArrayOf<Listing> {
-        get { state.allListings }
-        set { state.allListings = newValue }
-    }
-
-    var favoritesIds: [Listing.ID] {
-        get { state.favoritesIds }
-        set { state.favoritesIds = newValue }
-    }
-
     func binding(listing: Listing) -> Binding<Listing> {
         Binding(
             get: { listing },
@@ -37,5 +27,12 @@ class FavoritesViewModel: ObservableViewModel {
 
     var favorites: IdentifiedArrayOf<Listing> {
         favoritesModel.favoritesListings(state.allListings)
+    }
+
+    func binding<Value>(_ keyPath: WritableKeyPath<State, Value>) -> Binding<Value> {
+        Binding(
+            get: { self.state[keyPath: keyPath] },
+            set: { self.state[keyPath: keyPath] = $0 }
+        )
     }
 }

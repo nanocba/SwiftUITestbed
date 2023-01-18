@@ -1,5 +1,6 @@
 import Foundation
 import IdentifiedCollections
+import SwiftUI
 
 class ListingsContentViewModel: ObservableViewModel {
     struct State: Equatable {
@@ -14,13 +15,10 @@ class ListingsContentViewModel: ObservableViewModel {
 
     @Published private(set) var state: State = .init(tab: .listings, allListings: [])
 
-    var tab: State.Tab {
-        get { state.tab }
-        set { state.tab = newValue }
-    }
-
-    var allListings: IdentifiedArrayOf<Listing> {
-        get { state.allListings }
-        set { state.allListings = newValue }
+    func binding<Value>(_ keyPath: WritableKeyPath<State, Value>) -> Binding<Value> {
+        Binding(
+            get: { self.state[keyPath: keyPath] },
+            set: { self.state[keyPath: keyPath] = $0 }
+        )
     }
 }

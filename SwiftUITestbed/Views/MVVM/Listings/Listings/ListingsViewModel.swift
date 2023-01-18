@@ -3,10 +3,10 @@ import IdentifiedCollections
 
 class ListingsViewModel: ObservableViewModel {
     struct State: Equatable {
-        var searchTerm: String = ""
+        fileprivate var searchTerm: String = ""
         var searching: Bool = false
         var loading: Bool = false
-        var allListings: IdentifiedArrayOf<Listing>
+        fileprivate var allListings: IdentifiedArrayOf<Listing>
         var listings: IdentifiedArrayOf<Listing>
     }
 
@@ -84,6 +84,13 @@ class ListingsViewModel: ObservableViewModel {
         let listings = term.isEmpty ? state.allListings : state.allListings.filter { $0.listingTitle.contains(term) || $0.address.addressText.contains(term) }
         state.searching = false
         return .init(uniqueElements: listings)
+    }
+
+    func binding<Value>(_ keyPath: WritableKeyPath<State, Value>) -> Binding<Value> {
+        Binding(
+            get: { self.state[keyPath: keyPath] },
+            set: { self.state[keyPath: keyPath] = $0 }
+        )
     }
 }
 
