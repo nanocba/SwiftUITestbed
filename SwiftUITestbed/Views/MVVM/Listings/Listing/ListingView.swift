@@ -27,7 +27,7 @@ struct ListingView: View {
                     .keyboardType(.numberPad)
                     .label("Price")
 
-                if let priceError = viewModel.state.error {
+                if let priceError = viewModel.error {
                     Text(priceError)
                         .font(.callout)
                         .foregroundColor(.red)
@@ -35,7 +35,7 @@ struct ListingView: View {
 
                 Spacer()
             }
-            .onChange(of: viewModel.state.dismiss) {
+            .onChange(of: viewModel.dismiss) {
                 if $0 { dismiss() }
             }
             .padding()
@@ -52,7 +52,7 @@ struct ListingView: View {
                     }
                 }
             }
-            .navigationTitle(viewModel.state.title)
+            .navigationTitle(viewModel.title)
             .alert(unwrapping: viewModel.binding(\.alert), action: viewModel.handleAlertAction)
             .bind(model: viewModel.binding(\.source), to: $listing)
         }

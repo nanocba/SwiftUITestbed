@@ -12,7 +12,7 @@ struct ListingsView: View {
                         "Search for listings",
                         text: viewModel.binding(\.searchTerm)
                     )
-                    .loading(viewModel.state.searching)
+                    .loading(viewModel.searching)
 
                     ForEach(viewModel.state.listings) { listing in
                         ListingNavigationLink(listing: viewModel.binding(listing: listing))

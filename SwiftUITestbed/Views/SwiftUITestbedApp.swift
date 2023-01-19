@@ -33,7 +33,7 @@ struct SwiftUITestbedApp_test: App {
         var body: some View {
             WithViewModel(Counter1ViewModel.init, myModel.count1) { viewModel in
                 VStack {
-                    Text("\(viewModel.state.count)")
+                    Text("\(viewModel.count)")
                         .bind(model: viewModel.binding(\.count), to: $myModel.count1)
                         .sheet(isPresented: viewModel.binding(\.present)) {
                             Text("I'm a modal")
