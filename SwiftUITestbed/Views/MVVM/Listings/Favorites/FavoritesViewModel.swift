@@ -5,8 +5,8 @@ import SwiftUI
 
 class FavoritesViewModel: ObservableViewModel {
     struct State: Equatable {
-        var allListings: IdentifiedArrayOf<Listing>
-        var favoritesIds: [Listing.ID]
+        fileprivate var allListings: IdentifiedArrayOf<Listing>
+        fileprivate var favoritesIds: [Listing.ID]
     }
 
     @Published private(set) var state: State
@@ -27,6 +27,16 @@ class FavoritesViewModel: ObservableViewModel {
 
     var favorites: IdentifiedArrayOf<Listing> {
         favoritesModel.favoritesListings(state.allListings)
+    }
+
+    var favoritesIds: [Listing.ID] {
+        get { state.favoritesIds }
+        set { state.favoritesIds = newValue }
+    }
+
+    var allListings: IdentifiedArrayOf<Listing> {
+        get { state.allListings }
+        set { state.allListings = newValue }
     }
 
     func binding<Value>(_ keyPath: WritableKeyPath<State, Value>) -> Binding<Value> {

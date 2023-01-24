@@ -5,7 +5,7 @@ struct ListingsView: View {
     @Binding var allListings: IdentifiedArrayOf<Listing>
 
     var body: some View {
-        WithViewModel(ListingsViewModel.init, allListings) { viewModel in
+        WithViewModel(ListingsViewModel(allListings: allListings)) { viewModel in
             NavigationView {
                 List {
                     TextField(
@@ -22,8 +22,8 @@ struct ListingsView: View {
                     await viewModel.fetchAllListings()
                 }
                 .navigationTitle("Listings")
-                .bind(model: viewModel.binding(\.allListings), to: $allListings)
             }
         }
+        .bind(\.allListings, to: $allListings)
     }
 }

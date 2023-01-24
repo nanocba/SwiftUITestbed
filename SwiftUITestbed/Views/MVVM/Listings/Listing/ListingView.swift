@@ -5,7 +5,7 @@ struct ListingView: View {
     @Binding var listing: Listing
 
     var body: some View {
-        WithViewModel(EditListingViewModel.init, listing) { viewModel in
+        WithViewModel(EditListingViewModel(listing: listing)) { viewModel in
             VStack(alignment: .leading, spacing: 20) {
                 TextField("", text: viewModel.binding(\.title))
                     .label("Title")
@@ -54,8 +54,8 @@ struct ListingView: View {
             }
             .navigationTitle(viewModel.title)
             .alert(unwrapping: viewModel.binding(\.alert), action: viewModel.handleAlertAction)
-            .bind(model: viewModel.binding(\.source), to: $listing)
         }
+        .bind(\.source, to: $listing)
     }
 }
 

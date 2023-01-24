@@ -13,7 +13,7 @@ class EditListingViewModel: ObservableViewModel {
         var dismiss: Bool
         var alert: AlertState<AlertAction>?
 
-        var source: Listing
+        fileprivate var source: Listing
 
         init(listing: Listing) {
             title = listing.title
@@ -55,6 +55,11 @@ class EditListingViewModel: ObservableViewModel {
             state.price = newValue
             state.error = nil
         }
+    }
+
+    var source: Listing {
+        get { state.source }
+        set { state.source = newValue }
     }
 
     private func inputListing() -> Listing {

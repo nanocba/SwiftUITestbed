@@ -6,7 +6,7 @@ struct FavoritesView: View {
     @Binding var allListings: IdentifiedArrayOf<Listing>
 
     var body: some View {
-        WithViewModel(FavoritesViewModel.init, favoritesModel, allListings) { viewModel in
+        WithViewModel(FavoritesViewModel(favoritesModel: favoritesModel, allListings: allListings)) { viewModel in
             NavigationStack {
                 List {
                     ForEach(viewModel.favorites) { favoriteListing in
@@ -14,9 +14,9 @@ struct FavoritesView: View {
                     }
                 }
                 .navigationTitle("Favorites")
-                .bind(model: viewModel.binding(\.allListings), to: $allListings)
-                .bind(model: viewModel.binding(\.favoritesIds), to: favoritesModel.favorites)
             }
         }
+        .bind(\.allListings, to: $allListings)
+        .bind(\.favoritesIds, to: favoritesModel.favorites)
     }
 }
