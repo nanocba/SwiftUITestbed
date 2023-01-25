@@ -5,6 +5,7 @@ import SwiftUI
 protocol ObservableViewModel: ObservableObject {
     associatedtype State: Equatable
     var state: State { get }
+    func binding<Value: Equatable>(_ keyPath: WritableKeyPath<State, Value>) -> Binding<Value>
 }
 
 extension ObservableViewModel {

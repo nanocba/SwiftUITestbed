@@ -19,20 +19,51 @@ struct WithViewModel<ViewModel: ObservableViewModel, Content: View>: View {
     }
 
     func bind<Value: _Bindable>(_ keyPath: ReferenceWritableKeyPath<ViewModel, Value.Value>, to value: Value) -> Self where Value.Value: Equatable {
-        var current = self
-        current.bindings = { viewModel in
-            bindings(viewModel)
-                .bind(model: viewModel.binding(keyPath), to: value)
-                .eraseToAnyView()
-        }
-        return current
+        bind(.viewModel(keyPath), to: value)
+    }
+
+    func bind<Value: _Bindable>(_ keyPath: WritableKeyPath<ViewModel.State, Value.Value>, to value: Value) -> Self where Value.Value: Equatable {
+        bind(.state(keyPath), to: value)
     }
 
     func bind<Value: Equatable>(_ keyPath: ReferenceWritableKeyPath<ViewModel, Value>, to value: Value) -> Self {
+        bind(.viewModel(keyPath), to: value)
+    }
+
+    func bind<Value: Equatable>(_ keyPath: WritableKeyPath<ViewModel.State, Value>, to value: Value) -> Self {
+        bind(.state(keyPath), to: value)
+    }
+
+    private func bind<Value: _Bindable>(_ keyPath: BindingType<Value.Value>, to value: Value) -> Self where Value.Value: Equatable {
+        bind { bindings, viewModel in
+            bindings
+                .bind(model: keyPath.binding(from: viewModel), to: value)
+        }
+    }
+
+    private func bind<Value: Equatable>(_ keyPath: BindingType<Value>, to value: Value) -> Self {
+        bind { bindings, viewModel in
+            bindings
+                .bind(model: keyPath.binding(from: viewModel), to: value)
+        }
+    }
+
+    private enum BindingType<Value: Equatable> {
+        case viewModel(ReferenceWritableKeyPath<ViewModel, Value>)
+        case state(WritableKeyPath<ViewModel.State, Value>)
+
+        func binding(from viewModel: ViewModel) -> Binding<Value> {
+            switch self {
+            case .viewModel(let refKeyPath): return viewModel.binding(refKeyPath)
+            case .state(let stateKeyPath): return viewModel.binding(stateKeyPath)
+            }
+        }
+    }
+
+    private func bind(_ binding: @escaping (AnyView, ViewModel) -> some View) -> Self {
         var current = self
         current.bindings = { viewModel in
-            bindings(viewModel)
-                .bind(model: viewModel.binding(keyPath), to: value)
+            binding(bindings(viewModel), viewModel)
                 .eraseToAnyView()
         }
         return current

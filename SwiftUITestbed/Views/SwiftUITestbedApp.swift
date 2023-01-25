@@ -37,7 +37,7 @@ struct SwiftUITestbedApp_test: App {
                         .sheet(isPresented: viewModel.binding(\.present)) {
                             Text("I'm a modal")
                         }
-                    Button("Present modal", action: { viewModel.present = true })
+                    Button("Present modal", action: { viewModel.setPresent(true) })
                 }
             }
             .bind(\.count, to: $myModel.count1)
@@ -65,14 +65,15 @@ class Counter1ViewModel: ObservableViewModel {
         self.state = .init(count: count)
     }
 
-    var count: Int {
-        get{ state.count }
-        set{ state.count = newValue }
+    func setPresent(_ value: Bool) {
+        state.present = value
     }
 
-    var present: Bool {
-        get { state.present }
-        set { state.present = newValue }
+    func binding<Value>(_ keyPath: WritableKeyPath<State, Value>) -> Binding<Value> where Value : Equatable {
+        Binding(
+            get: { self.state[keyPath: keyPath] },
+            set: { self.state[keyPath: keyPath] = $0 }
+        )
     }
 }
 
