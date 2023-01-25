@@ -2,20 +2,17 @@ import SwiftUI
 
 struct WithViewModel<ViewModel: ObservableViewModel, Content: View>: View {
     @StateObject var viewModel: ViewModel
-    let state: ViewModel.State
     let content: (ViewModel) -> Content
 
     private var bindings: (ViewModel) -> AnyView = { _ in EmptyView().eraseToAnyView() }
 
     init(_ viewModel: @autoclosure @escaping () -> ViewModel, @ViewBuilder content: @escaping (ViewModel) -> Content) {
-        let vm = viewModel()
-        self._viewModel = StateObject(wrappedValue: vm)
-        self.state = vm.state
+        self._viewModel = StateObject(wrappedValue: viewModel())
         self.content = content
     }
 
     var body: some View {
-        EquatableContent(viewModel: viewModel, content: content, state: state)
+        EquatableContent(viewModel: viewModel, content: content, state: viewModel.state)
             .equatable()
 
         bindings(viewModel)
