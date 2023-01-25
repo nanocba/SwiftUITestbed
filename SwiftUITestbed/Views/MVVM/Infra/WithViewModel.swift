@@ -48,6 +48,15 @@ struct WithViewModel<ViewModel: ObservableViewModel, Content: View>: View {
         }
     }
 
+    private func bind(_ binding: @escaping (AnyView, ViewModel) -> some View) -> Self {
+        var current = self
+        current.bindings = { viewModel in
+            binding(bindings(viewModel), viewModel)
+                .eraseToAnyView()
+        }
+        return current
+    }
+
     private enum BindingType<Value: Equatable> {
         case viewModel(ReferenceWritableKeyPath<ViewModel, Value>)
         case state(WritableKeyPath<ViewModel.State, Value>)
@@ -58,15 +67,6 @@ struct WithViewModel<ViewModel: ObservableViewModel, Content: View>: View {
             case .state(let stateKeyPath): return viewModel.binding(stateKeyPath)
             }
         }
-    }
-
-    private func bind(_ binding: @escaping (AnyView, ViewModel) -> some View) -> Self {
-        var current = self
-        current.bindings = { viewModel in
-            binding(bindings(viewModel), viewModel)
-                .eraseToAnyView()
-        }
-        return current
     }
 
     private struct EquatableContent: View, Equatable {
