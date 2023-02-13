@@ -87,7 +87,7 @@ class EditListingViewModel: ObservableViewModel {
         }
 
         state.source = inputListing()
-        state.dismiss = true
+//        state.dismiss = true
     }
 
     func cancel() {
