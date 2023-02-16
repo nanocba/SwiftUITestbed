@@ -9,9 +9,9 @@
 /* Begin PBXBuildFile section */
 		4C365C882996CC35008904E0 /* PaymentSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C365C872996CC35008904E0 /* PaymentSummaryView.swift */; };
 		4C365C8A2996CE13008904E0 /* PaymentSummaryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C365C892996CE13008904E0 /* PaymentSummaryViewModel.swift */; };
-		4C365C8D2996E278008904E0 /* CustomPaymentsLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C365C8C2996E278008904E0 /* CustomPaymentsLink.swift */; };
 		4C365C8F2996E734008904E0 /* PaymentCustomizationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C365C8E2996E734008904E0 /* PaymentCustomizationView.swift */; };
 		4C365C91299AC979008904E0 /* PaymentCustomizationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C365C90299AC979008904E0 /* PaymentCustomizationViewModel.swift */; };
+		4C379BB0299EE787009C72D1 /* PropertyPricingComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C379BAF299EE787009C72D1 /* PropertyPricingComponents.swift */; };
 		FA35524E296640050035FE49 /* SwiftUITestbedApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA35524D296640050035FE49 /* SwiftUITestbedApp.swift */; };
 		FA355250296640050035FE49 /* Content.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA35524F296640050035FE49 /* Content.swift */; };
 		FA355252296640070035FE49 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA355251296640070035FE49 /* Assets.xcassets */; };
@@ -76,9 +76,9 @@
 /* Begin PBXFileReference section */
 		4C365C872996CC35008904E0 /* PaymentSummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentSummaryView.swift; sourceTree = "<group>"; };
 		4C365C892996CE13008904E0 /* PaymentSummaryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentSummaryViewModel.swift; sourceTree = "<group>"; };
-		4C365C8C2996E278008904E0 /* CustomPaymentsLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPaymentsLink.swift; sourceTree = "<group>"; };
 		4C365C8E2996E734008904E0 /* PaymentCustomizationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentCustomizationView.swift; sourceTree = "<group>"; };
 		4C365C90299AC979008904E0 /* PaymentCustomizationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentCustomizationViewModel.swift; sourceTree = "<group>"; };
+		4C379BAF299EE787009C72D1 /* PropertyPricingComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyPricingComponents.swift; sourceTree = "<group>"; };
 		FA35524A296640050035FE49 /* SwiftUITestbed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftUITestbed.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA35524D296640050035FE49 /* SwiftUITestbedApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUITestbedApp.swift; sourceTree = "<group>"; };
 		FA35524F296640050035FE49 /* Content.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Content.swift; sourceTree = "<group>"; };
@@ -154,7 +154,7 @@
 		4C365C842996CACA008904E0 /* MortgageCalculator */ = {
 			isa = PBXGroup;
 			children = (
-				4C365C8B2996E251008904E0 /* Components */,
+				4C379BAE299EE767009C72D1 /* Model */,
 				4C365C862996CB78008904E0 /* PaymentCustomization */,
 				4C365C852996CB6D008904E0 /* PaymentSummary */,
 			);
@@ -179,12 +179,12 @@
 			path = PaymentCustomization;
 			sourceTree = "<group>";
 		};
-		4C365C8B2996E251008904E0 /* Components */ = {
+		4C379BAE299EE767009C72D1 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				4C365C8C2996E278008904E0 /* CustomPaymentsLink.swift */,
+				4C379BAF299EE787009C72D1 /* PropertyPricingComponents.swift */,
 			);
-			path = Components;
+			path = Model;
 			sourceTree = "<group>";
 		};
 		FA355241296640050035FE49 = {
@@ -586,7 +586,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FA8CC75A2971A5860092C2A5 /* FavoritesViewModel.swift in Sources */,
-				4C365C8D2996E278008904E0 /* CustomPaymentsLink.swift in Sources */,
+				4C379BB0299EE787009C72D1 /* PropertyPricingComponents.swift in Sources */,
 				FA8CC7422970C22F0092C2A5 /* Party.swift in Sources */,
 				4C365C8F2996E734008904E0 /* PaymentCustomizationView.swift in Sources */,
 				FA355250296640050035FE49 /* Content.swift in Sources */,

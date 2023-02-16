@@ -1,82 +1,50 @@
 import SwiftUI
 
-enum MortgageDuration: Int {
-    case ten = 10
-    case fifteen = 15
-    case twenty = 20
-    case thirty = 30
-}
-
 class PaymentSummaryViewModel: ObservableViewModel {
     @Published private(set) var state: State
     
     struct State: Equatable {
-        var price: Double
-        var mortgageDuration: MortgageDuration
-        var annualInterest: Double
-        var annualInterestText: String
-        var propertyTaxes: Double
-        var hoaDues: Double
-        fileprivate var paymentPerMonth: Int
-        fileprivate var principalAndInterest: Int
+        var paymentComponents: PropertyPaymentComponents
 
         init(
-            price: Double,
-            mortgageDuration: MortgageDuration,
-            annualInterest: Double,
-            propertyTaxes: Double,
-            hoaDues: Double,
-            paymentPerMonth: Int,
-            principalAndInterest: Int
+            paymentComponents: PropertyPaymentComponents
         ) {
-            self.price = price
-            self.mortgageDuration = mortgageDuration
-            self.annualInterest = annualInterest
-            self.annualInterestText = String(format: "%.2f", annualInterest)
-            self.propertyTaxes = propertyTaxes
-            self.hoaDues = hoaDues
-            self.paymentPerMonth = paymentPerMonth
-            self.principalAndInterest = principalAndInterest
+            self.paymentComponents = paymentComponents
         }
     }
 
-    var paymentPerMonth: Int {
+    var annualInterestText: String {
         get {
-            return Int((Double(principalAndInterest) + state.hoaDues + state.propertyTaxes).rounded())
+            String(format: "%.2f", state.paymentComponents.interestRate)
         }
-        // Using an unecessary Set here - it's essentialy just a computed var. Is there a better way?
-        set {
-            state.paymentPerMonth = newValue
-        }
+        set {}
     }
 
-    var principalAndInterest: Int {
+    var paymentPerMonth: String {
         get {
-            let monthlyInterest = state.annualInterest / 100 / 12
-            let numberOfPayments = Double(state.mortgageDuration.rawValue / 12)
-            let num = (monthlyInterest * (1 + monthlyInterest) * numberOfPayments)
-            let den = ((1 + monthlyInterest) * numberOfPayments + 1)
-            return Int((state.price * num / den).rounded())
+            return String(Int((Double(principalAndInterest) + state.paymentComponents.hoaDues + state.paymentComponents.propertyTaxes).rounded()))
         }
-        // Using an unecessary Set here - it's essentialy just a computed var. Is there a better way?
-        set {
-            state.principalAndInterest = newValue
-        }
+        // Not ideal that I need this. Is there a better way?
+        set {}
+    }
+
+    private var principal: Double {
+        state.paymentComponents.price * (1 - state.paymentComponents.downPaymentPercentage)
+    }
+
+    private var principalAndInterest: Int {
+        let monthlyInterest = state.paymentComponents.interestRate / 100 / 12
+        let numberOfPayments = Double(state.paymentComponents.mortgageDuration.rawValue / 12)
+        let num = (monthlyInterest * (1 + monthlyInterest) * numberOfPayments)
+        let den = ((1 + monthlyInterest) * numberOfPayments + 1)
+        return Int((principal * num / den).rounded())
     }
 
     init(
-        price: Double,
-        propertyTaxes: Double = 0,
-        hoaDues: Double = 0
+        paymentComponents: PropertyPaymentComponents
     ) {
         self.state = State(
-            price: price,
-            mortgageDuration: .thirty,
-            annualInterest: 6,
-            propertyTaxes: propertyTaxes,
-            hoaDues: hoaDues,
-            paymentPerMonth: 0,
-            principalAndInterest: 0
+            paymentComponents: paymentComponents
         )
     }
 

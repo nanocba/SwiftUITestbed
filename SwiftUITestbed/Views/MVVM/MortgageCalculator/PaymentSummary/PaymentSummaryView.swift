@@ -4,13 +4,15 @@ struct PaymentSummaryView: View {
     @State private var showingCustomCalculationSheet = false
     @Binding var listing: Listing
 
-    fileprivate func customPayments() -> some View {
+    fileprivate func customPayments(_ viewModel: PaymentSummaryViewModel) -> some View {
         return Button("Customize Payments") {
             showingCustomCalculationSheet.toggle()
         }
         .buttonStyle(.bordered)
         .sheet(isPresented: $showingCustomCalculationSheet) {
-            PaymentCustomizationView()
+            PaymentCustomizationView(
+                paymentComponents: viewModel.binding(\.paymentComponents)
+            )
         }
     }
 
@@ -18,9 +20,8 @@ struct PaymentSummaryView: View {
         return VStack(alignment: .leading, spacing: 8) {
             // Do I have to use wrapped value here
             Text("$\(viewModel.binding(\.paymentPerMonth).wrappedValue) per month")
-            Text("$\(viewModel.binding(\.principalAndInterest).wrappedValue) per month")
             HStack {
-                Text("\(viewModel.binding(\.mortgageDuration).wrappedValue.rawValue) Year Fixed, ")
+                Text("\(viewModel.binding(\.paymentComponents.mortgageDuration).wrappedValue.rawValue) Year Fixed, ")
                 Text("\(viewModel.binding(\.annualInterestText).wrappedValue)% Interest")
             }
         }
@@ -33,15 +34,21 @@ struct PaymentSummaryView: View {
     var body: some View {
         WithViewModel(
             PaymentSummaryViewModel(
-                price: listing.price,
-                propertyTaxes: 1450,
-                hoaDues: 350
-            )
-        ) { viewModel in
+                paymentComponents:
+                    PropertyPaymentComponents(
+                        price: listing.price,
+                        downPaymentPercentage: 0.2,
+                        hoaDues: 350,
+                        propertyTaxes: 1450,
+                        interestRate: 6.0,
+                        mortgageDuration: .thirty
+                    )
+                )
+            ) { viewModel in
             paymentDetails(viewModel)
-            customPayments()
+            customPayments(viewModel)
         }
-        .bind(\.price, to: $listing.price)
+            .bind(\.paymentComponents.price, to: $listing.price)
     }
 }
 
