@@ -4,6 +4,14 @@ struct ListingView: View {
     @Environment(\.dismiss) var dismiss
     @Binding var listing: Listing
 
+    fileprivate func paymentSummary(_ viewModel: EditListingViewModel) -> some View {
+        HStack(alignment: .center) {
+            Spacer()
+            PaymentSummaryView(listing: viewModel.binding(\.source))
+            Spacer()
+        }
+    }
+
     var body: some View {
         WithViewModel(EditListingViewModel(listing: listing)) { viewModel in
             VStack(alignment: .leading, spacing: 20) {
@@ -32,7 +40,7 @@ struct ListingView: View {
                         .font(.callout)
                         .foregroundColor(.red)
                 }
-
+                paymentSummary(viewModel)
                 Spacer()
             }
             .onChange(of: viewModel.dismiss) {
@@ -58,4 +66,3 @@ struct ListingView: View {
         .bind(\.source, to: $listing)
     }
 }
-
