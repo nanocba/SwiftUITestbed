@@ -5,6 +5,7 @@ class PaymentSummaryViewModel: ObservableViewModel {
     
     struct State: Equatable {
         var paymentComponents: PropertyPaymentComponents
+        var showingCustomCalculationSheet: Bool = false
 
         init(
             paymentComponents: PropertyPaymentComponents
@@ -13,19 +14,16 @@ class PaymentSummaryViewModel: ObservableViewModel {
         }
     }
 
+    func presentCustomCalculation() {
+        state.showingCustomCalculationSheet = true
+    }
+
     var annualInterestText: String {
-        get {
-            String(format: "%.2f", state.paymentComponents.interestRate)
-        }
-        set {}
+        String(format: "%.2f", state.paymentComponents.interestRate)
     }
 
     var paymentPerMonth: String {
-        get {
-            return String(Int((Double(principalAndInterest) + state.paymentComponents.hoaDues + state.paymentComponents.propertyTaxes).rounded()))
-        }
-        // Not ideal that I need this. Is there a better way?
-        set {}
+        String(Int((Double(principalAndInterest) + state.paymentComponents.hoaDues + state.paymentComponents.propertyTaxes).rounded()))
     }
 
     private var principal: Double {

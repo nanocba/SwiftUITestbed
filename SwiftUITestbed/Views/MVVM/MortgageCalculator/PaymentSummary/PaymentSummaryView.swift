@@ -1,35 +1,7 @@
 import SwiftUI
 
 struct PaymentSummaryView: View {
-    @State private var showingCustomCalculationSheet = false
     @Binding var listing: Listing
-
-    fileprivate func customPayments(_ viewModel: PaymentSummaryViewModel) -> some View {
-        return Button("Customize Payments") {
-            showingCustomCalculationSheet.toggle()
-        }
-        .buttonStyle(.bordered)
-        .sheet(isPresented: $showingCustomCalculationSheet) {
-            PaymentCustomizationView(
-                paymentComponents: viewModel.binding(\.paymentComponents)
-            )
-        }
-    }
-
-    fileprivate func paymentDetails(_ viewModel: PaymentSummaryViewModel) -> some View {
-        return VStack(alignment: .leading, spacing: 8) {
-            // Do I have to use wrapped value here
-            Text("$\(viewModel.binding(\.paymentPerMonth).wrappedValue) per month")
-            HStack {
-                Text("\(viewModel.binding(\.paymentComponents.mortgageDuration).wrappedValue.rawValue) Year Fixed, ")
-                Text("\(viewModel.binding(\.annualInterestText).wrappedValue)% Interest")
-            }
-        }
-        .padding(8)
-        .background(.blue)
-        .foregroundColor(.white)
-        .cornerRadius(8)
-    }
 
     var body: some View {
         WithViewModel(
@@ -48,7 +20,34 @@ struct PaymentSummaryView: View {
             paymentDetails(viewModel)
             customPayments(viewModel)
         }
-            .bind(\.paymentComponents.price, to: $listing.price)
+        .bind(\.paymentComponents.price, to: $listing.price)
+    }
+
+    fileprivate func customPayments(_ viewModel: PaymentSummaryViewModel) -> some View {
+        Button("Customize Payments") {
+            viewModel.presentCustomCalculation()
+        }
+        .buttonStyle(.bordered)
+        .sheet(isPresented: viewModel.binding(\.showingCustomCalculationSheet)) {
+            PaymentCustomizationView(
+                paymentComponents: viewModel.binding(\.paymentComponents)
+            )
+        }
+    }
+
+    fileprivate func paymentDetails(_ viewModel: PaymentSummaryViewModel) -> some View {
+        VStack(alignment: .leading, spacing: 8) {
+            // Do I have to use wrapped value here
+            Text("$\(viewModel.paymentPerMonth) per month")
+            HStack {
+                Text("\(viewModel.paymentComponents.mortgageDuration.rawValue) Year Fixed, ")
+                Text("\(viewModel.annualInterestText)% Interest")
+            }
+        }
+        .padding(8)
+        .background(.blue)
+        .foregroundColor(.white)
+        .cornerRadius(8)
     }
 }
 
