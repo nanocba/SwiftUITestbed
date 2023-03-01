@@ -1,7 +1,7 @@
 import SwiftUI
 import IdentifiedCollections
 
-class ListingsViewModel: ObservableViewModel {
+class ListingsViewModel: EventlessObservableViewModel {
     struct State: Equatable {
         fileprivate var searchTerm: String = ""
         var searching: Bool = false
@@ -25,11 +25,14 @@ class ListingsViewModel: ObservableViewModel {
             listings: allListings
         )
 
-        observe(onListingDidSave)
+        observe(EditListingViewModel.self, closure: onListingViewModelEvent)
     }
 
-    private func onListingDidSave(event: EditListingViewModel.DidSaveEvent) {
-        state.toast = "Listing saved"
+    private func onListingViewModelEvent(event: EditListingViewModel.Event) {
+        switch event {
+        case .didSave:
+            state.toast = "Listing saved"
+        }
     }
 
     @MainActor

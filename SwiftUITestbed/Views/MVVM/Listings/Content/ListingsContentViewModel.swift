@@ -2,7 +2,7 @@ import Foundation
 import IdentifiedCollections
 import SwiftUI
 
-class ListingsContentViewModel: ObservableViewModel {
+class ListingsContentViewModel: EventlessObservableViewModel {
     struct State: Equatable {
         var tab: Tab
         var allListings: IdentifiedArrayOf<Listing>
