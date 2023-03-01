@@ -1,14 +1,138 @@
 import SwiftUI
 import Combine
 
-@main
-struct SwiftUITestbedApp_mvvm: App {
-    @StateObject var model = Model()
+struct SwiftUITestbedApp_test: App {
+    @StateObject var model = MyModel()
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
-                .environmentObject(model)
+            NavigationStack {
+                List {
+                    NavigationLink(
+                        "Counter 1",
+                        destination: Counter1View()
+                    )
+
+                    NavigationLink(
+                        "Counter 2",
+                        destination: Counter2View()
+                    )
+                }
+                .onAppear {
+                    //model.startUpdatingCount1()
+                    model.startUpdatingCount2()
+                }
+            }
+            .environmentObject(model)
+        }
+    }
+
+    struct Counter1View: View {
+        @EnvironmentObject var myModel: MyModel
+
+        var body: some View {
+            WithViewModel(Counter1ViewModel(count: myModel.count1)) { viewModel in
+                VStack {
+                    Text("\(viewModel.count)")
+                        .sheet(isPresented: viewModel.binding(\.present)) {
+                            Text("I'm a modal")
+                        }
+                    Button("Present modal", action: { viewModel.setPresent(true) })
+                }
+            }
+            .bind(\.count, to: $myModel.count1)
+        }
+    }
+
+    struct Counter2View: View {
+        @EnvironmentObject var myModel: MyModel
+
+        var body: some View {
+            Text("\(myModel.count2)")
+        }
+    }
+}
+
+class Counter1ViewModel: ObservableViewModel {
+    struct State: Equatable {
+        var count: Int
+        var present: Bool = false
+    }
+
+    @Published private(set) var state: State
+
+    init(count: Int) {
+        self.state = .init(count: count)
+    }
+
+    func setPresent(_ value: Bool) {
+        state.present = value
+    }
+
+    func binding<Value>(_ keyPath: WritableKeyPath<State, Value>) -> Binding<Value> where Value : Equatable {
+        Binding(
+            get: { self.state[keyPath: keyPath] },
+            set: { self.state[keyPath: keyPath] = $0 }
+        )
+    }
+}
+
+class MyModel: ObservableObject {
+    @Published var count1: Int = 0
+    @Published var count2: Int = 0
+
+    var updatingCount1: Bool = false
+    var updatingCount2: Bool = false
+
+    func startUpdatingCount1() {
+        guard !updatingCount1 else { return }
+        updatingCount1 = true
+        updateCount1()
+    }
+
+    func updateCount1() {
+        self.count1 += 1
+
+        guard updatingCount1 else { return }
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.3) { [weak self] in
+            self?.updateCount1()
+        }
+    }
+
+    func stopUpdatingCount1() {
+        updatingCount1 = false
+    }
+
+    func startUpdatingCount2() {
+        guard !updatingCount2 else { return }
+        updatingCount2 = true
+        updateCount2()
+    }
+
+    func updateCount2() {
+        self.count2 += 1
+
+        guard updatingCount2 else { return }
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
+            self?.updateCount2()
+        }
+    }
+
+    func stopUpdatingCount2() {
+        updatingCount2 = false
+    }
+}
+
+@main
+struct SwiftUITestbedApp_mvvm_listings: App {
+    @StateObject private var favoritesModel = FavoritesModel()
+
+    var body: some Scene {
+        WindowGroup {
+            ListingsContentView()
+                .environmentObject(favoritesModel)
         }
     }
 }

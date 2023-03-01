@@ -14,7 +14,7 @@ struct FavoritePrimes: View {
                 .onDelete(perform: store.deleteFavoritePrime)
             }
             .navigationBarTitle("Favorites Primes")
-            .bind(model: store.binding(\.favoritePrimes), to: $favoritePrimes)
+            //.bind(model: store.binding(\.favoritePrimes), to: $favoritePrimes)
         }
     }
 }

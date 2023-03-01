@@ -43,8 +43,8 @@ struct Counter: View {
                     dismissButton: .default(Text("Ok"))
                 )
             }
-            .bind(model: store.binding(\.count), to: $count)
-            .bind(model: store.binding(\.favoritesPrimes), to: $favoritesPrimes)
+//            .bind(model: store.binding(\.count), to: $count)
+//            .bind(model: store.binding(\.favoritesPrimes), to: $favoritesPrimes)
         }
     }
 }
