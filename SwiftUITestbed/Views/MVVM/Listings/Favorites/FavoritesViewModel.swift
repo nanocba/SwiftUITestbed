@@ -3,7 +3,7 @@ import Foundation
 import Dependencies
 import SwiftUI
 
-class FavoritesViewModel: ObservableViewModel {
+class FavoritesViewModel: EventlessObservableViewModel {
     struct State: Equatable {
         fileprivate var allListings: IdentifiedArrayOf<Listing>
         fileprivate var favoritesIds: [Listing.ID]

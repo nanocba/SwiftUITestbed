@@ -53,7 +53,7 @@ struct SwiftUITestbedApp_test: App {
     }
 }
 
-class Counter1ViewModel: ObservableViewModel {
+class Counter1ViewModel: EventlessObservableViewModel {
     struct State: Equatable {
         var count: Int
         var present: Bool = false

@@ -33,7 +33,9 @@ class EditListingViewModel: ObservableViewModel {
         }
     }
 
-    struct DidSaveEvent { }
+    enum Event {
+        case didSave
+    }
 
     @Published private(set) var state: State
 
@@ -90,7 +92,7 @@ class EditListingViewModel: ObservableViewModel {
 
         state.source = inputListing()
         state.dismiss = true
-        send(DidSaveEvent())
+        send(.didSave)
     }
 
     func cancel() {

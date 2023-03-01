@@ -3,24 +3,31 @@ import SwiftUI
 
 let eventManager = EventManager()
 
+protocol EventlessObservableViewModel: ObservableViewModel where Event == Never {}
+
+extension ObservableViewModel where Event == Never {
+    func send(_ event: Event) { }
+}
+
 @dynamicMemberLookup
 protocol ObservableViewModel: ObservableObject, Observer {
     associatedtype State: Equatable
+    associatedtype Event
     var state: State { get }
     func binding<Value: Equatable>(_ keyPath: WritableKeyPath<State, Value>) -> Binding<Value>
 }
 
 extension ObservableViewModel {
-    func send<Event>(_ event: Event) {
-        eventManager.notify(event)
+    func send(_ event: Event) {
+        eventManager.notify(viewModel: self, event: event)
     }
 
-    func observe<Event>(_ closure: @escaping (Event) -> Void) {
-        eventManager.add(observer: self, closure: closure)
+    func observe<ViewModel: ObservableViewModel>(_ viewModelType: ViewModel.Type, closure: @escaping (ViewModel.Event) -> Void) {
+        eventManager.add(observer: self, viewModel: viewModelType, closure: closure)
     }
 
-    func unobserve<Event>(_ eventType: Event.Type) {
-        eventManager.remove(observer: self, eventType: eventType)
+    func unobserve<ViewModel: ObservableViewModel>(_ viewModelType: ViewModel.Type) {
+        eventManager.remove(observer: self, viewModel: viewModelType)
     }
 
     func unobserve() {
