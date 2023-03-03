@@ -44,8 +44,6 @@
 		FA8CC76B2974A1240092C2A5 /* ListingNavigationLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8CC76A2974A1240092C2A5 /* ListingNavigationLink.swift */; };
 		FA8CC76D2974C97E0092C2A5 /* ListingsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8CC76C2974C97E0092C2A5 /* ListingsViewModelTests.swift */; };
 		FAA1F48B29AF4424008ECFE9 /* EventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA1F48A29AF4423008ECFE9 /* EventManager.swift */; };
-		FAA1F4C129B29A95008ECFE9 /* TestTemplateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA1F4BF29B29A95008ECFE9 /* TestTemplateView.swift */; };
-		FAA1F4C229B29A95008ECFE9 /* TestTemplateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA1F4C029B29A95008ECFE9 /* TestTemplateViewModel.swift */; };
 		FACCD72D296C3121005D1150 /* CustomDump in Frameworks */ = {isa = PBXBuildFile; productRef = FACCD72C296C3121005D1150 /* CustomDump */; };
 		FACCD732296D833D005D1150 /* SwiftUINavigation in Frameworks */ = {isa = PBXBuildFile; productRef = FACCD731296D833D005D1150 /* SwiftUINavigation */; };
 		FACCD734296E408F005D1150 /* WolframAlpha.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACCD733296E408F005D1150 /* WolframAlpha.swift */; };
@@ -110,8 +108,6 @@
 		FA8CC76A2974A1240092C2A5 /* ListingNavigationLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingNavigationLink.swift; sourceTree = "<group>"; };
 		FA8CC76C2974C97E0092C2A5 /* ListingsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingsViewModelTests.swift; sourceTree = "<group>"; };
 		FAA1F48A29AF4423008ECFE9 /* EventManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventManager.swift; sourceTree = "<group>"; };
-		FAA1F4BF29B29A95008ECFE9 /* TestTemplateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestTemplateView.swift; sourceTree = "<group>"; };
-		FAA1F4C029B29A95008ECFE9 /* TestTemplateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestTemplateViewModel.swift; sourceTree = "<group>"; };
 		FACCD733296E408F005D1150 /* WolframAlpha.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WolframAlpha.swift; sourceTree = "<group>"; };
 		FACCD735296E8D53005D1150 /* TestStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestStore.swift; sourceTree = "<group>"; };
 		FACCD74E29708D8E005D1150 /* ObservableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableViewModel.swift; sourceTree = "<group>"; };
@@ -314,8 +310,6 @@
 			children = (
 				FA8CC7442970C4C30092C2A5 /* ListingsViewModel.swift */,
 				FA8CC7462970C4CB0092C2A5 /* ListingsView.swift */,
-				FAA1F4BF29B29A95008ECFE9 /* TestTemplateView.swift */,
-				FAA1F4C029B29A95008ECFE9 /* TestTemplateViewModel.swift */,
 			);
 			path = Listings;
 			sourceTree = "<group>";
@@ -568,7 +562,6 @@
 				FA67507D296A55370006A680 /* StoreObserver.swift in Sources */,
 				FA8CC74D297164E60092C2A5 /* ListingViewModel.swift in Sources */,
 				FA8CC74F297164F10092C2A5 /* ListingView.swift in Sources */,
-				FAA1F4C129B29A95008ECFE9 /* TestTemplateView.swift in Sources */,
 				FA8CC75C2971A58E0092C2A5 /* FavoritesView.swift in Sources */,
 				FA675089296A59B10006A680 /* FavoritePrimesCore.swift in Sources */,
 				FACCD74F29708D8E005D1150 /* ObservableViewModel.swift in Sources */,
@@ -577,7 +570,6 @@
 				FA8CC76429749F9A0092C2A5 /* LabelViewModifier.swift in Sources */,
 				FA35527E296641370035FE49 /* ForEachBinding.swift in Sources */,
 				FA35524E296640050035FE49 /* SwiftUITestbedApp.swift in Sources */,
-				FAA1F4C229B29A95008ECFE9 /* TestTemplateViewModel.swift in Sources */,
 				FA8CC7522971751F0092C2A5 /* Favorites.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
