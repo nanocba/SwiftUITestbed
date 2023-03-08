@@ -33,6 +33,8 @@ class EditListingViewModel: ObservableViewModel {
         }
     }
 
+    struct DidSaveEvent { }
+
     @Published private(set) var state: State
 
     init(listing: Listing) {
@@ -87,7 +89,8 @@ class EditListingViewModel: ObservableViewModel {
         }
 
         state.source = inputListing()
-//        state.dismiss = true
+        state.dismiss = true
+        send(DidSaveEvent())
     }
 
     func cancel() {

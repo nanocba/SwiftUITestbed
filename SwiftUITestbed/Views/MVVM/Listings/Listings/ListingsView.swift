@@ -22,6 +22,19 @@ struct ListingsView: View {
                     await viewModel.fetchAllListings()
                 }
                 .navigationTitle("Listings")
+                .overlay(alignment: .bottom) {
+                    if let toast = viewModel.toast {
+                        Text(toast)
+                            .multilineTextAlignment(.leading)
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(Color.blue)
+                            .foregroundColor(.white)
+                            .animation(.easeIn, value: viewModel.toast)
+                            .transition(.move(edge: .bottom))
+                            .task { await viewModel.hideToastAfter() }
+                    }
+                }
             }
         }
         .bind(\.allListings, to: $allListings)

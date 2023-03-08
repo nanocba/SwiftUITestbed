@@ -8,17 +8,34 @@ class ListingsViewModel: ObservableViewModel {
         var loading: Bool = false
         fileprivate var allListings: IdentifiedArrayOf<Listing>
         var listings: IdentifiedArrayOf<Listing>
+        var toast: String?
     }
 
     @Published private(set) var state: State
 
     var searchTask: Task<IdentifiedArrayOf<Listing>, Error>?
 
+    deinit {
+        unobserve()
+    }
+
     init(allListings: IdentifiedArrayOf<Listing>) {
         state = .init(
             allListings: allListings,
             listings: allListings
         )
+
+        observe(onListingDidSave)
+    }
+
+    private func onListingDidSave(event: EditListingViewModel.DidSaveEvent) {
+        state.toast = "Listing saved"
+    }
+
+    @MainActor
+    func hideToastAfter() async {
+        try? await Task.sleep(for: .seconds(1))
+        state.toast = nil
     }
 
     var searchTerm: String {
